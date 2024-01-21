@@ -9,8 +9,8 @@ const transporter=nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
     auth:{
-        user:'shoeverse.2024@gmail.com',
-        pass:'sdkgfatgmrwasoln'
+        user:process.env.GMAIL,
+        pass:process.env.PASS
     }
 });
 
