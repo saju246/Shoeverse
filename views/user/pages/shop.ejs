@@ -129,7 +129,7 @@
 
                     <div class="product-widget">
                         <h3 class="widget-title mb-30">Product categories</h3>
-                        <ul>
+                        <ul  class="product-categories">
                             <% if (category.length>0) { %> <% if(category.length> 1) { %>
                                     <li><a href="/shop">All Categories</a></li>
                                     <% } %>
@@ -239,7 +239,10 @@
                                                         <div class="product__name">
                                                             <h4><a href="/viewProduct/<%= product?._id %>">
                                                                     <%= product?.title %>
-                                                                </a></h4>
+                                                                </a>
+                                                                <br>
+                                                                <p><%=product.categoryName.categoryName%></p>
+                                                            </h4>
                                                             <div class="pro-price">
                                                                 <p class="p-absoulute pr-1"><span>$</span>
                                                                     <%=product?.salePrice %>
@@ -313,7 +316,10 @@
                                                         <div class="product__name">
                                                             <h4><a href="/viewProduct/<%= product?.id %>">
                                                                     <%= product?.title %>
-                                                                </a></h4>
+                                                                </a>
+                                                                <br>
+                                                                <p><%=product.categoryName.categoryName%></p>
+                                                            </h4>
                                                             <div class="pro-price">
                                                                 <p class="p-absoulute pr-1"><span>$</span>
                                                                     <%=product?.salePrice %>
@@ -378,11 +384,16 @@
                                                             <h4><a href="/viewProduct/<%= product?.id %>">
                                                                     <%= product?.title %>
                                                                 </a>
+                                                                <br>
+                                                                <p><%=product.categoryName.categoryName%></p>
+                                                                
                                                             </h4>
                                                             <div class="pro-price">
                                                                 <p class="p-absoulute pr-1"><span>$</span>
                                                                     <%=product?.salePrice %>
                                                                 </p>
+                                                                
+
                                                                 <a class="p-absoulute pr-2" href="#">add to cart</a>
                                                             </div>
                                                         </div>
@@ -429,6 +440,8 @@
                                                                 <a href="/viewProduct/<%= product?.id %>">
                                                                     <h2 class="mb-10">
                                                                         <%= product?.title %>
+                                                                        <br>
+                                                                        <p><%=product.categoryName.categoryName%></p>
                                                                     </h2>
                                                                 </a>
                                                             </div>
