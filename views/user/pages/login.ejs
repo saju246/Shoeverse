@@ -1,0 +1,110 @@
+<%- include('../includes/header') %>
+
+  
+
+    
+    
+    <!-- breadcrumb area end -->
+    <div class="login_register_area">
+        <div class="container align-items-center">
+            <div class="row gx-5 d-flex justify-content-center">
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 offset-xl-1">
+                    <h3 class="title-7">Login</h3>
+                    <div class="login_wrapper">
+                        <form action="" id="form" method="post">
+                            <div class="input_wrap">
+                                <label>Email address <span>*</span></label>
+                                <input type="email" required id="mailInp" name="email">
+                                <div id="emailError"></div>
+                            </div>
+                            <div class="input_wrap">
+                                <label>Password<span>*</span></label>
+                                <input type="password" required id="passInput" name="password">
+                                <span class="show-pass"><i class="far fa-eye-slash"></i></span>
+                                <div id="passwordError"></div>
+                            </div>
+                            <div class="input_wrap">
+                                <button type="submit" id="submitButton" value="login">Log in</button>
+                            </div>
+                            <div class="input_wrap">
+                                <a href="#">Lost your password?</a>
+                                <%- include('../includes/flashMessage') %>
+                            </div>
+                            <div id="formErrors"></div>
+                            <a href="/register">dont have an account?</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get form and input elements
+        const form = document.getElementById("form");
+        const emailInput = document.getElementById("mailInp");
+        const passwordInput = document.getElementById("passInput");
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+        const submitButton = document.getElementById("submitButton");
+    
+        // Regular expression for validating email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        // Function to check if an email is valid
+        function isValidEmail(email) {
+            return emailRegex.test(email);
+        }
+    
+        // Function to validate the form
+        function validateForm() {
+            let valid = true;
+    
+            if (!isValidEmail(emailInput.value)) {
+                emailError.textContent = "Please enter a valid email address.";
+                valid = false;
+            } else {
+                emailError.textContent = "";
+            }
+    
+            if (passwordInput.value.trim() === "") {
+                passwordError.textContent = "Password is required.";
+                valid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+    
+            // Enable or disable the submit button based on validity
+            submitButton.disabled = !valid;
+    
+            return valid;
+        }
+    
+        // Add blur event listeners for input fields
+        emailInput.addEventListener("blur", validateForm);
+        passwordInput.addEventListener("blur", validateForm);
+    
+        // Add submit event listener to the form
+        form.addEventListener("submit", function (e) {
+            if (!validateForm()) {
+                e.preventDefault(); // Prevent form submission if it's invalid
+            }
+        });
+    
+        // Add error handling for form submission
+        form.addEventListener("submit", function () {
+            const allErrors = [emailError, passwordError];
+            const formErrors = document.getElementById("formErrors");
+    
+            if (allErrors.every((error) => error.textContent === "")) {
+                formErrors.textContent = "";
+                // Uncomment the next line to submit the form
+                // form.submit();
+            } else {
+                formErrors.textContent = "Please correct the errors in the form.";
+            }
+        });
+    </script>
+    
+
+    <%- include('../includes/footer') %>
