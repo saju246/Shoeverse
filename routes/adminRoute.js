@@ -6,7 +6,7 @@ const productController = require('../controllers/admin/productController')
 
 const {isAdminLoggedin,isAdminLoggedOut,} =require('../middleware/adminAuth')
 const { upload, handleError, fileUploadValidation } = require("../config/upload");
-
+adminRoute.set('layout','./admin/includes/layout.ejs')
 
 // --------------------------admin login----------------------------
 

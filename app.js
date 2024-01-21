@@ -10,6 +10,7 @@ const morgan = require("morgan");
 const flash = require("connect-flash");
 const passport = require("passport");
 const override = require("method-override");
+const expressLayouts = require('express-ejs-layouts')
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -26,9 +27,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("short"));
 
 // Set up EJS for rendering views
+app.use(expressLayouts)
+
 app.set("view engine", "ejs");
 
-app.set("views", path.join(__dirname, "./views"));
+app.set('views', path.join(__dirname, "./views"));
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "./public")));
@@ -68,6 +71,7 @@ app.use(nocache());
 // Routes
 const userRoute = require("./routes/userRoute");
 app.use("/", userRoute);
+
 
 const adminRoute = require('./routes/adminRoute');
 app.use('/admin',adminRoute)

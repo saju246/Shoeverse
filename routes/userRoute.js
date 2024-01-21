@@ -11,7 +11,7 @@ const {
 }
 =require("../middleware/userAuth")
 
-
+userRoute.set('layout','./user/includes/layout.ejs')
 
 // ------------------------------auth methods-----------------------------
 
