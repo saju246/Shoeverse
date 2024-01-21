@@ -52,7 +52,7 @@ userRoute.get('/shop',shopController.loadShop);
 
 // ----------------------product details page -------------------------
 
-userRoute.get('/viewProduct/:id',shopController.loadProductDetails)
+// userRoute.get('/viewProduct/:id',shopController.loadProductDetails)
 
 
 module.exports = userRoute;

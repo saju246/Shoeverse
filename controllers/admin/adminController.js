@@ -8,7 +8,7 @@ require("dotenv").config();
 const loadLogin = asynchandler(async (req, res) => {
   try {
     const messages = req.flash();
-    res.render("./admin/pages/login", { messages });
+    res.render("./admin/pages/login", {title: "WATCHBOX/LOGIN",  messages });
   } catch (error) {
     throw new Error(error);
   }
@@ -43,7 +43,7 @@ const verifyAdmin = async (req, res) => {
 // ---------------------------------------load index-------------------------------------
 const loadIndex = asynchandler(async (req, res) => {
   try {
-    res.render("./admin/pages/index");
+    res.render("./admin/pages/index",{ title: "WATCHBOX/INDEX"});
   } catch (error) {
     throw new Error(error);
   }
@@ -55,6 +55,7 @@ const usermanagement = asynchandler(async (req, res) => {
   try {
     const findUsers = await User.find();
     res.render("./admin/pages/userlist", {
+      title: "WATCHBOX/USERLIST",
       users: findUsers,
     });
   } catch (error) {
