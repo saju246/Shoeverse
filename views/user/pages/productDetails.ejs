@@ -1,251 +1,250 @@
 <!-- < include('../includes/header') %> -->
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.js"></script>
 
-    <div class="search_area">
-        <div class="search_close">
-            <span><i class="fal fa-times"></i></span>
+<div class="search_area">
+    <div class="search_close">
+        <span><i class="fal fa-times"></i></span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="search-wrapper text-center">
+                    <h2>search</h2>
+                    <div class="search-filtering pt-30">
+                        <div class="search_tab">
+                            <ul class="nav nav-tabs justify-content-center mb-55" id="myTab2" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="home-tab2" data-bs-toggle="tab"
+                                        data-bs-target="#home2" type="button" role="tab" aria-selected="true">All
+                                        categories</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab2" data-bs-toggle="tab"
+                                        data-bs-target="#profile2" type="button" role="tab"
+                                        aria-selected="false">Basketball</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contact2"
+                                        type="button" role="tab" aria-selected="false">Handbag</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sportswear-tab" data-bs-toggle="tab"
+                                        data-bs-target="#sportswear" type="button" role="tab"
+                                        aria-selected="false">Sportswear</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent2">
+                                <div class="tab-pane fade show active" id="home2" role="tabpanel">
+
+                                </div>
+                                <div class="tab-pane fade" id="profile2" role="tabpanel">
+
+                                </div>
+                                <div class="tab-pane fade" id="contact2" role="tabpanel">
+
+                                </div>
+                                <div class="tab-pane fade" id="sportswear" role="tabpanel">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main_search">
+                        <form action="#">
+                            <input type="text" name="search" placeholder="search products">
+                            <button class="m-search"><i class="fal fa-search d-sm-none d-md-block"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12">
-                    <div class="search-wrapper text-center">
-                        <h2>search</h2>
-                        <div class="search-filtering pt-30">
-                            <div class="search_tab">
-                                <ul class="nav nav-tabs justify-content-center mb-55" id="myTab2" role="tablist">
+    </div>
+</div>
+
+<div class="fix">
+    <div class="side-info">
+        <button class="side-info-close"><i class="fal fa-times"></i></button>
+        <div class="side-info-content">
+            <div class="mobile-menu"></div>
+            <div class="contact-infos mb-30">
+                <div class="contact-list mb-30">
+                    <h4>Office Address</h4>
+                    <p>123/A, Miranda City Likaoli
+                        Prikano, Dope</p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Phone Number</h4>
+                    <p>+0989 7876 9865 9</p>
+                    <p>+(090) 8765 86543 85</p>
+                </div>
+                <div class="contact-list mb-30">
+                    <h4>Email Address</h4>
+                    <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
+                            data-cfemail="523b3c343d12372a333f223e377c313d3f">[email&#160;protected]</a></p>
+                    <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
+                            data-cfemail="54312c35392438317a39353d38143c21397a373b39">[email&#160;protected]</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas-overlay"></div>
+
+<!-- cart area start  -->
+<div class="cart__sidebar">
+    <div class="container">
+        <div class="cart__content">
+            <div class="cart-text">
+                <h3 class="mb-40">Shopping cart</h3>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="/user/assets/img/product/29-3.jpg" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a href="shop.html">Running 3-Stripes</a></h5>
+                        <p>1 × $66.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="/user/assets/img/product/17.jpg" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a href="shop.html">Buddy non Stripes</a></h5>
+                        <p>1 × $40.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-icon">
+                <i class="fal fa-times"></i>
+            </div>
+            <div class="cart-bottom">
+                <div class="cart-bottom__text">
+                    <span>Subtotal:</span>
+                    <span class="end">$121.00</span>
+                    <a href="cart.html">view cart</a>
+                    <a href="checkout.html">checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-offcanvas-overlay"></div>
+<!-- cart area end  -->
+
+<!-- single_breadcrumb_area start -->
+<div class="single_breadcrumb pt-25">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="row">
+
+                    <div class="col-xl-2 col-lg-2 col-md-2">
+                        <div class="single_product_tab">
+                            <div class="single_prodct">
+                                <ul class="nav nav-tabs justify-content-center mb-55" id="dfde" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="home-tab2" data-bs-toggle="tab"
-                                            data-bs-target="#home2" type="button" role="tab" aria-selected="true">All
-                                            categories</button>
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#homde" type="button" role="tab" aria-selected="true"><img
+                                                src="<%= Product?.images[0]?.thumbnailUrl %>" alt=""></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="profile-tab2" data-bs-toggle="tab"
-                                            data-bs-target="#profile2" type="button" role="tab"
-                                            aria-selected="false">Basketball</button>
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#profidfdle" type="button" role="tab"
+                                            aria-selected="false"><img src="<%= Product?.images[1]?.thumbnailUrl %>"
+                                                alt=""></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contact2"
-                                            type="button" role="tab" aria-selected="false">Handbag</button>
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contadfdct"
+                                            type="button" role="tab" aria-selected="false"><img
+                                                src="<%= Product?.images[2]?.thumbnailUrl %>" alt=""></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="sportswear-tab" data-bs-toggle="tab"
-                                            data-bs-target="#sportswear" type="button" role="tab"
-                                            aria-selected="false">Sportswear</button>
+                                        <button class="nav-link" id="kids-tab" data-bs-toggle="tab"
+                                            data-bs-target="#kidsdfd" type="button" role="tab"
+                                            aria-selected="false"><img src="<%= Product?.images[3]?.thumbnailUrl %>"
+                                                alt=""></button>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="myTabContent2">
-                                    <div class="tab-pane fade show active" id="home2" role="tabpanel">
-
-                                    </div>
-                                    <div class="tab-pane fade" id="profile2" role="tabpanel">
-
-                                    </div>
-                                    <div class="tab-pane fade" id="contact2" role="tabpanel">
-
-                                    </div>
-                                    <div class="tab-pane fade" id="sportswear" role="tabpanel">
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="main_search">
-                            <form action="#">
-                                <input type="text" name="search" placeholder="search products">
-                                <button class="m-search"><i class="fal fa-search d-sm-none d-md-block"></i></button>
-                            </form>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="fix">
-        <div class="side-info">
-            <button class="side-info-close"><i class="fal fa-times"></i></button>
-            <div class="side-info-content">
-                <div class="mobile-menu"></div>
-                <div class="contact-infos mb-30">
-                    <div class="contact-list mb-30">
-                        <h4>Office Address</h4>
-                        <p>123/A, Miranda City Likaoli
-                            Prikano, Dope</p>
-                    </div>
-                    <div class="contact-list mb-30">
-                        <h4>Phone Number</h4>
-                        <p>+0989 7876 9865 9</p>
-                        <p>+(090) 8765 86543 85</p>
-                    </div>
-                    <div class="contact-list mb-30">
-                        <h4>Email Address</h4>
-                        <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="523b3c343d12372a333f223e377c313d3f">[email&#160;protected]</a></p>
-                        <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="54312c35392438317a39353d38143c21397a373b39">[email&#160;protected]</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="offcanvas-overlay"></div>
 
-    <!-- cart area start  -->
-    <div class="cart__sidebar">
-        <div class="container">
-            <div class="cart__content">
-                <div class="cart-text">
-                    <h3 class="mb-40">Shopping cart</h3>
-                    <div class="add_cart_product">
-                        <div class="add_cart_product__thumb">
-                            <img src="/user/assets/img/product/29-3.jpg" alt="">
-                        </div>
-                        <div class="add_cart_product__content">
-                            <h5><a href="shop.html">Running 3-Stripes</a></h5>
-                            <p>1 × $66.00</p>
-                            <button class="cart_close"><i class="fal fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="add_cart_product">
-                        <div class="add_cart_product__thumb">
-                            <img src="/user/assets/img/product/17.jpg" alt="">
-                        </div>
-                        <div class="add_cart_product__content">
-                            <h5><a href="shop.html">Buddy non Stripes</a></h5>
-                            <p>1 × $40.00</p>
-                            <button class="cart_close"><i class="fal fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart-icon">
-                    <i class="fal fa-times"></i>
-                </div>
-                <div class="cart-bottom">
-                    <div class="cart-bottom__text">
-                        <span>Subtotal:</span>
-                        <span class="end">$121.00</span>
-                        <a href="cart.html">view cart</a>
-                        <a href="checkout.html">checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="cart-offcanvas-overlay"></div>
-    <!-- cart area end  -->
+                    <div class="col-xl-10 col-lg-10 col-md-10">
+                        <div class="single_preview_product">
+                            <div class="tab-content" id="myTabefContent">
+                                <div class="tab-pane fade show active" id="homde" role="tabpanel">
+                                    <div class="full-view">
 
-    <!-- single_breadcrumb_area start -->
-    <div class="single_breadcrumb pt-25">
-        <div class="container">
 
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="row">
 
-                        <div class="col-xl-2 col-lg-2 col-md-2">
-                            <div class="single_product_tab">
-                                <div class="single_prodct">
-                                    <ul class="nav nav-tabs justify-content-center mb-55" id="dfde" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                                data-bs-target="#homde" type="button" role="tab"
-                                                aria-selected="true"><img src="<%= Product?.images[0]?.thumbnailUrl %>"
-                                                    alt=""></button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                                data-bs-target="#profidfdle" type="button" role="tab"
-                                                aria-selected="false"><img src="<%= Product?.images[1]?.thumbnailUrl %>"
-                                                    alt=""></button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contadfdct"
-                                                type="button" role="tab" aria-selected="false"><img
-                                                    src="<%= Product?.images[2]?.thumbnailUrl %>" alt=""></button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="kids-tab" data-bs-toggle="tab"
-                                                data-bs-target="#kidsdfd" type="button" role="tab"
-                                                aria-selected="false"><img src="<%= Product?.images[3]?.thumbnailUrl %>"
-                                                    alt=""></button>
-                                        </li>
-                                    </ul>
+                                        <div class="single-prd-item img_zoom_container">
+                                            <div class="zoom" onmousemove="zoom(event)" onmouseout="resetZoom(event)">
+                                                <img class="img-fluid" src="<%= Product?.images[0]?.thumbnailUrl %>"
+                                                    alt="">
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="profidfdle" role="tabpanel">
+                                    <div class="full-view">
+                                        <div class="single-prd-item img_zoom_container">
+                                            <div class="zoom" onmousemove="zoom(event)" onmouseout="resetZoom(event)">
+                                                <img class="img-fluid" src="<%= Product?.images[1]?.thumbnailUrl %>"
+                                                    alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="contadfdct" role="tabpanel">
+                                    <div class="full-view">
+                                        <div class="single-prd-item img_zoom_container">
+                                            <div class="zoom" onmousemove="zoom(event)" onmouseout="resetZoom(event)">
+                                                <img class="img-fluid" src="<%= Product?.images[2]?.thumbnailUrl %>"
+                                                    alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="kidsdfd" role="tabpanel">
+                                    <div class="full-view">
+                                        <div class="single-prd-item img_zoom_container">
+                                            <div class="zoom" onmousemove="zoom(event)" onmouseout="resetZoom(event)">
+                                                <img class="img-fluid" src="<%= Product?.images[3]?.thumbnailUrl %>"
+                                                    alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="col-xl-10 col-lg-10 col-md-10">
-                            <div class="single_preview_product">
-                                <div class="tab-content" id="myTabefContent">
-                                    <div class="tab-pane fade show active" id="homde" role="tabpanel">
-                                        <div class="full-view">
-
-
-
-                                            <div class="single-prd-item img_zoom_container">
-                                                <div class="zoom" onmousemove="zoom(event)"
-                                                    onmouseout="resetZoom(event)">
-                                                    <img class="img-fluid" src="<%= Product?.images[0]?.thumbnailUrl %>" alt="">
-                                                </div>
-                                            
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="tab-pane fade" id="profidfdle" role="tabpanel">
-                                        <div class="full-view">
-                                            <div class="single-prd-item img_zoom_container">
-                                                <div class="zoom" onmousemove="zoom(event)"
-                                                    onmouseout="resetZoom(event)">
-                                                    <img class="img-fluid" src="<%= Product?.images[1]?.thumbnailUrl %>" alt="">
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="contadfdct" role="tabpanel">
-                                        <div class="full-view">
-                                            <div class="single-prd-item img_zoom_container">
-                                                <div class="zoom" onmousemove="zoom(event)"
-                                                    onmouseout="resetZoom(event)">
-                                                    <img class="img-fluid" src="<%= Product?.images[2]?.thumbnailUrl %>" alt="">
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="kidsdfd" role="tabpanel">
-                                        <div class="full-view">
-                                            <div class="single-prd-item img_zoom_container">
-                                                <div class="zoom" onmousemove="zoom(event)"
-                                                    onmouseout="resetZoom(event)">
-                                                    <img class="img-fluid" src="<%= Product?.images[3]?.thumbnailUrl %>" alt="">
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                        </div>
 
                     </div>
+
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <div class="single_preview_content pl-30">
-                        <h2 class="title-5 edit-title border-bottom-0">
-                            <%= Product?.title %>
-                        </h2>
-                        <!-- <div class="s-product-review">
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="single_preview_content pl-30">
+                    <h2 class="title-5 edit-title border-bottom-0">
+                        <%= Product?.title %>
+                    </h2>
+                    <!-- <div class="s-product-review">
                             <span><i class="far fa-star start-color"></i></span>
                             <span><i class="far fa-star start-color"></i></span>
                             <span><i class="far fa-star start-color"></i></span>
@@ -253,21 +252,27 @@
                             <span><i class="far fa-star"></i></span>
                             <span class="pl-left">(1 customer review)</span>
                         </div> -->
-                        <div class="s-price pt-30 mb-30">
-                            <span>$<%= Product?.salePrice %></span>
-                        </div>
-                        <div class="s-des">
-                            <p>
-                                <%= Product?.description %>
-                            </p>
-                        </div>
-                        <div class="viewcontent__action single_action pt-30">
-                            <span><input type="number" placeholder="1"></span>
-                            <span><a href="cart.html">+ add to cart</a></span>
-                            <span><i class="fal fa-heart"></i></span>
-                            <span><i class="fas fa-compress"></i></span>
-                        </div>
-                        <!-- <div class="viewcontent__footer border-top-0 border-bottom pb-30">
+                    <div class="s-price pt-30 mb-30">
+                        <span>$<%= Product?.salePrice %></span>
+                    </div>
+                    <div class="s-des">
+                        <p>
+                            <%= Product?.description %>
+                        </p>
+                    </div>
+                    <div class="viewcontent__action single_action pt-30">
+
+                        <span>
+                            <% if(!user){ %>
+                                <a title="" href="/login">add to cart</a>
+                                <% }else{ %>
+                                    <a title=""  onclick="addcart(`<%=Product?._id%>`)">add to cart</a>
+                                    <% } %>
+                        </span>
+                        <span><i class="fal fa-heart"></i></span>
+                        <span><i class="fas fa-compress"></i></span>
+                    </div>
+                    <!-- <div class="viewcontent__footer border-top-0 border-bottom pb-30">
                             <ul>
                                 <li>Category:</li>
                                 <li>SKU:</li>
@@ -285,78 +290,117 @@
                             <a href="#"><i class="fab fa-google-plus-g"></i></a>
                             <a href="#"><i class="fab fa-dribbble"></i></a>
                         </div> -->
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- single_breadcrumb_area end -->
+</div>
+<!-- single_breadcrumb_area end -->
 
-    <style>
-        /* Keep your existing CSS styles */
-        .img_zoom_container {
-            position: relative;
-            overflow: hidden;
-            cursor: zoom-in;
-        }
+<style>
+    /* Keep your existing CSS styles */
+    .img_zoom_container {
+        position: relative;
+        overflow: hidden;
+        cursor: zoom-in;
+    }
 
-        .img_zoom {
-            transition: transform 0.9s ease-in-out;
-            transform-origin: center center;
-        }
+    .img_zoom {
+        transition: transform 0.9s ease-in-out;
+        transform-origin: center center;
+    }
 
-        /* Remove the background-image style from figure.zoom */
-        figure.zoom {
-            background-position: 50% 50%;
-            position: relative;
-            margin: 10px auto;
-            border: 5px solid white;
-            box-shadow: -1px 5px 15px black;
-            height: 500px;
-            width: 500px;
-            overflow: hidden;
-            cursor: zoom-in;
-        }
+    /* Remove the background-image style from figure.zoom */
+    figure.zoom {
+        background-position: 50% 50%;
+        position: relative;
+        margin: 10px auto;
+        border: 5px solid white;
+        box-shadow: -1px 5px 15px black;
+        height: 500px;
+        width: 500px;
+        overflow: hidden;
+        cursor: zoom-in;
+    }
 
-        /* Add a rule to hide the img inside the figure */
-        figure.zoom img {
-            display: none;
-        }
+    /* Add a rule to hide the img inside the figure */
+    figure.zoom img {
+        display: none;
+    }
 
-        .img_zoom_container {
-            position: relative;
-            overflow: hidden;
-            cursor: zoom-in;
-        }
+    .img_zoom_container {
+        position: relative;
+        overflow: hidden;
+        cursor: zoom-in;
+    }
 
-        .img_zoom {
-            transition: transform 0.9s ease-in-out;
-            transform-origin: center center;
-        }
-    </style>
-    <!-- 
+    .img_zoom {
+        transition: transform 0.9s ease-in-out;
+        transform-origin: center center;
+    }
+</style>
+<!-- 
     popup area end -->
 
-    <script>
-        function zoom(event) {
-            var zoomer = event.currentTarget;
-            var offsetX = event.offsetX ? event.offsetX : event.touches[0].pageX;
-            var offsetY = event.offsetY ? event.offsetY : event.touches[0].pageY;
-            var x = (offsetX / zoomer.offsetWidth) * 100;
-            var y = (offsetY / zoomer.offsetHeight) * 100;
-            zoomer.querySelector('img').style.transform = 'scale(2.1)';
-            zoomer.querySelector('img').style.transformOrigin = x + '% ' + y + '%';
-        }
+<script>
+    function zoom(event) {
+        var zoomer = event.currentTarget;
+        var offsetX = event.offsetX ? event.offsetX : event.touches[0].pageX;
+        var offsetY = event.offsetY ? event.offsetY : event.touches[0].pageY;
+        var x = (offsetX / zoomer.offsetWidth) * 100;
+        var y = (offsetY / zoomer.offsetHeight) * 100;
+        zoomer.querySelector('img').style.transform = 'scale(2.1)';
+        zoomer.querySelector('img').style.transformOrigin = x + '% ' + y + '%';
+    }
 
-        function resetZoom(event) {
-            var zoomer = event.currentTarget;
-            zoomer.querySelector('img').style.transform = 'none';
-        }
-
-
+    function resetZoom(event) {
+        var zoomer = event.currentTarget;
+        zoomer.querySelector('img').style.transform = 'none';
+    }
 
 
-    </script>
 
 
-    <!-- < include('../includes/footer') %> -->
+</script>
+<script>
+    function addcart(id) {
+        console.log(id);
+        const url = `/cart/add/${id}`;
+
+        const cartMessage = document.getElementById("cart-message");
+
+
+        fetch(url, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log("json response is sending failed");
+                }
+            })
+            .then((data) => {
+                if (data) {
+                    if (data.count && data.message) {
+                        // cartCount.innerText = data.count;
+                        cartMessage.innerText = data.message;
+
+                        cartMessage.className = `position-fixed bg-${data.status} text-white p-2 rounded`;
+                        cartMessage.style.display = "block";
+
+                        setTimeout(function () {
+                            cartMessage.style.display = "none";
+                        }, 3000);
+                    } else {
+                        console.error("Unexpected data format", data);
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("An error occurred:", error);
+            });
+    }
+</script>
+
+<!-- < include('../includes/footer') %> -->

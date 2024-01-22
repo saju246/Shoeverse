@@ -1,13 +1,11 @@
-const asynchandler = require('express-async-handler');
-const product = require('../../models/productModel');
-const User = require('../../models/userModel');
-const Category = require('../../models/categoryModel');
-
+const asynchandler = require("express-async-handler");
+const product = require("../../models/productModel");
+const User = require("../../models/userModel");
+const Category = require("../../models/categoryModel");
 
 // ---------------------------------load shop--------------------------------
 
-exports.loadShop = asynchandler(async (req, res) => {
-
+const loadShop = asynchandler(async (req, res) => {
   try {
     const user = req.user;
     const page = req.query.p || 1;
@@ -20,7 +18,7 @@ exports.loadShop = asynchandler(async (req, res) => {
       categoryMapping[category.categoryName] = category._id;
     });
     const filter = { isListed: true };
-   
+
     if (req.query.category) {
       // Check if the category name exists in the mapping
       if (categoryMapping.hasOwnProperty(req.query.category)) {
@@ -66,23 +64,25 @@ exports.loadShop = asynchandler(async (req, res) => {
         sortCriteria.salePrice = -1;
       }
     }
-    const findProducts = await product.find(filter)
-      .populate("images").populate("categoryName")
+    const findProducts = await product
+      .find(filter)
+      .populate("images")
+      .populate("categoryName")
       .skip((page - 1) * limit)
       .limit(limit)
       .sort(sortCriteria);
 
-
-    const count = await product.find(filter)
+    const count = await product
+      .find(filter)
       // { categoryName: { $in: listedCategoryIds }, isListed: true })
       .countDocuments();
     let selectedCategory = [];
     if (filter.categoryName) {
       selectedCategory.push(filter.categoryName);
     }
-console.log(listedCategories);
+    console.log(listedCategories);
     res.render("./user/pages/shop", {
-        title: "WATCHBOX",
+      title: "SHOEVERSE",
       products: findProducts,
       category: listedCategories,
       user,
@@ -93,22 +93,29 @@ console.log(listedCategories);
   } catch (error) {
     throw new Error(error);
   }
-
 });
-  
-  // -------------------------------------load product details---------------------------------------
 
-  // const loadProductDetails = asynchandler(async (req,res)=>{
-  //   try{
-  //     const id = req.params.id;
-  //     const Product = await product
-  //       .findOne({ _id: id })
-  //       .populate("images")
-  //       .populate("categoryName");
-  //     const relatedProducts = await product.find().populate("images");
-  //     res.render("./user/pages/productDetails", {Product,relatedProducts,});
-  //   }catch(error){
-  //     throw new Error(error.message);
-  //   }
-  // })
+// -------------------------------------load product details---------------------------------------
 
+const loadProductDetails = asynchandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const Product = await product
+      .findOne({ _id: id })
+      .populate("images")
+      .populate("categoryName");
+    const relatedProducts = await product.find().populate("images");
+    res.render("./user/pages/productDetails", {
+      title: "SHOEVERSE/PRODUCTDETAILS",
+      Product,
+      relatedProducts,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
+
+module.exports = {
+  loadShop,
+  loadProductDetails,
+};

@@ -7,6 +7,8 @@ const asynchandler = require("express-async-handler");
 const product = require('../../models/productModel')
 const category = require('../../models/categoryModel')
 
+
+
 // ------------------------------------loadHome----------------------------------------
 const loadIndex = asynchandler(async(req,res)=>{
   try{

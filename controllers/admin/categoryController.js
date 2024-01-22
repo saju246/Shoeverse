@@ -7,7 +7,7 @@ const expressHandler = require('express-async-handler')
 const categoryManagement = expressHandler(async(req,res)=>{
     try{
         const findCategory = await category.find();
-        res.render('./admin/pages/category',{
+        res.render('./admin/pages/category',{title:"SHOEVERSE",
             category:findCategory
         })
     }catch(error){
@@ -19,7 +19,7 @@ const categoryManagement = expressHandler(async(req,res)=>{
 const addCategory =  expressHandler(async (req,res)=>{
     try{
         const messages = req.flash();
-    res.render('./admin/pages/addCategory',{messages});
+    res.render('./admin/pages/addCategory',{title:"SHOEVERSE",messages});
 
     }catch(error){
         throw new Error(error.message);
@@ -38,7 +38,7 @@ const insertCategory = expressHandler(async (req,res)=>{
         if(findCat){
             const catCheck = `Category ${categoryName} Already exist`;
             req.flash("danger",'category already exist')
-            res.render("./admin/pages/addCategory",{catCheck});
+            res.render("./admin/pages/addCategory",{title:"SHOEVERSE",catCheck});
         }else{
             const result = new category ({
                 categoryName : categoryName,
@@ -92,7 +92,7 @@ const editCategory = expressHandler(async (req,res)=>{
 
         if(catName){
             const messages = req.flash();
-            res.render("./admin/pages/editCategory",{
+            res.render("./admin/pages/editCategory",{title:"SHOEVERSE",
                 value:catName,messages
             });
         }

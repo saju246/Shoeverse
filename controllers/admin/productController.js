@@ -19,7 +19,7 @@ const loadProduct = asynchandler(async (req, res) => {
 
     const messages = req.flash();
 
-    res.render("./admin/pages/product", { messages, products: products });
+    res.render("./admin/pages/product", { title:"SHOEVERSE" , messages, products: products });
   } catch (error) {
     throw new Error(error.message);
   }
@@ -31,7 +31,7 @@ const addProduct = asynchandler(async (req, res) => {
   try {
     const Category = await category.find({ isListed: true });
     const messages = req.flash();
-    res.render("./admin/pages/addProduct", { catList: Category, messages });
+    res.render("./admin/pages/addProduct", { title:"SHOEVERSE" ,  catList: Category, messages });
   } catch (error) {
     throw new Error(error);
   }
@@ -128,7 +128,7 @@ const editProduct = asynchandler(async (req, res) => {
     const categories = await category.find({ isListed: true });
     const messages = req.flash();
 
-    res.render("./admin/pages/editProduct", {
+    res.render("./admin/pages/editProduct", {title:"SHOEVERSE",
       categories,
       Product,
       messages,
