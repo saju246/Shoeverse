@@ -35,12 +35,13 @@ const findProductById = async (productId) => {
 
 const incrementQuantity = async (userId, productId, res) => {
   const updateProduct = await findCartItem(userId, productId);
+  console.log(updateProduct);
 
   if (!updateProduct) {
     return res.json({ message: "Product not found in cart", status: "error" });
   }
 
-  const foundProduct = updateProduct.product.find((cartProduct) =>
+  const foundProduct = updateProduct.products.find((cartProduct) =>
     cartProduct.product.equals(productId)
   );
 

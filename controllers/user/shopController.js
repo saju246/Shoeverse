@@ -82,7 +82,7 @@ const loadShop = asynchandler(async (req, res) => {
     }
     console.log(listedCategories);
     res.render("./user/pages/shop", {
-      title: "SHOEVERSE",
+      title: "SHOP",
       products: findProducts,
       category: listedCategories,
       user,

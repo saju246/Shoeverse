@@ -1,62 +1,4 @@
-<div class="search_area">
-    <div class="search_close">
-        <span><i class="fal fa-times"></i></span>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12">
-                <div class="search-wrapper text-center">
-                    <h2>search</h2>
-                    <div class="search-filtering pt-30">
-                        <div class="search_tab">
-                            <ul class="nav nav-tabs justify-content-center mb-55" id="myTab2" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="home-tab2" data-bs-toggle="tab"
-                                        data-bs-target="#home2" type="button" role="tab" aria-selected="true">All
-                                        categories</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab2" data-bs-toggle="tab"
-                                        data-bs-target="#profile2" type="button" role="tab"
-                                        aria-selected="false">Basketball</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contact2"
-                                        type="button" role="tab" aria-selected="false">Handbag</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="sportswear-tab" data-bs-toggle="tab"
-                                        data-bs-target="#sportswear" type="button" role="tab"
-                                        aria-selected="false">Sportswear</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent2">
-                                <div class="tab-pane fade show active" id="home2" role="tabpanel">
 
-                                </div>
-                                <div class="tab-pane fade" id="profile2" role="tabpanel">
-
-                                </div>
-                                <div class="tab-pane fade" id="contact2" role="tabpanel">
-
-                                </div>
-                                <div class="tab-pane fade" id="sportswear" role="tabpanel">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="main_search">
-                        <form action="#">
-                            <input type="text" name="search" placeholder="search products">
-                            <button class="m-search"><i class="fal fa-search d-sm-none d-md-block"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="fix">
     <div class="side-info">
@@ -87,79 +29,15 @@
 </div>
 <div class="offcanvas-overlay"></div>
 
-<!-- cart area start  -->
-<div class="cart__sidebar">
-    <div class="container">
-        <div class="cart__content">
-            <div class="cart-text">
-                <h3 class="mb-40">Shopping cart</h3>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="assets/img/product/29-3.jpg" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a href="shop.html">Running 3-Stripes</a></h5>
-                        <p>1 × $66.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="add_cart_product">
-                    <div class="add_cart_product__thumb">
-                        <img src="assets/img/product/17.jpg" alt="">
-                    </div>
-                    <div class="add_cart_product__content">
-                        <h5><a href="shop.html">Buddy non Stripes</a></h5>
-                        <p>1 × $40.00</p>
-                        <button class="cart_close"><i class="fal fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="cart-icon">
-                <i class="fal fa-times"></i>
-            </div>
-            <div class="cart-bottom">
-                <div class="cart-bottom__text">
-                    <span>Subtotal:</span>
-                    <span class="end">$121.00</span>
-                    <a href="cart.html">view cart</a>
-                    <a href="checkout.html">checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="cart-offcanvas-overlay"></div>
-<!-- cart area end  -->
 
-<!-- breadcrumb area start -->
-<div class="page-layout" data-background="assets/img/slider/shop.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="breadcrumb-area text-center">
-                    <h2 class="page-title">Cart</h2>
-                    <div class="breadcrumb-menu">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="cart.html">cart</a></li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb area end -->
-
+<% if ( cartItems && cartItems.products && cartItems.products.length) { %>
 <div class="f_cart_area pt-110 mb-100">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-12">
                 <form action="/checkout" method="post" ">
                     <div class=" cart_table">
-                    <% if ( cartItems && cartItems.products && cartItems.products.length) { %>
+                  
                         <table>
                             <tr>
                                 <td>Product</td>
@@ -204,7 +82,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="btn btn-outline-secondary h-auto minusBtn"
                                                     data-product-id="<%= product.product._id %>">
-                                                    <i class="ti ti-minus"></i>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /></svg>
                                                 </a>
                                                 <span class="btn btn-dark h-auto quantity"
                                                     id="quantity_<%= product.product._id %>">
@@ -214,7 +92,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="btn btn-outline-secondary h-auto plusBtn"
                                                     data-product-id="<%= product.product._id %>" id="plusBtn">
-                                                    <i class="ti ti-plus"></i>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                                                 </a>
                                             </div>
                                         </td class="product-subtotal" id="totalProductPrice_<%= product.product._id %>">
@@ -238,7 +116,7 @@
 
                                 </tbody>
                                 <% }) %>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr class="design-footer">
                                             <td>
                                                 <input type="text" placeholder="Coupon Code">
@@ -246,9 +124,9 @@
                                             <td><button type="submit">Apply Coupon</button></td>
                                             <td colspan="3"><a href="#">update cart</a></td>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> --!>
                         </table>
-                        <% }%>
+                       
                 </form>
             </div>
         </div>
@@ -260,13 +138,13 @@
                     
                     <tr class="first-child">
                         <td>sub total</td>
-                        <td>
+                        <td id="subtotal">
                             <%= subtotal.toFixed(2) %>
                         </td>
                     </tr>
                     <tr>
                         <td>total</td>
-                        <td>
+                        <td id="cart-total">
                             <%= total.toFixed(2) %>
                         </td>
                     </tr>
@@ -281,67 +159,21 @@
         </div>
     </div>
 </div>
-</div>
-
-
-// <!-- popup area start -->
-<div class="overlay"></div>
-<div class="product-popup">
-    <div class="view-background">
+<% }else{ %>
+    <div class="f_cart_area pt-110 mb-100">
+    <div class="container">
         <div class="row">
-            <div class="col-xl-5 col-lg-5 col-md-5">
-                <div class="quickview">
-                    <div class="quickview__thumb">
-                        <img src="assets/img/quick_view/25.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-7">
-                <div class="viewcontent">
-                    <div class="viewcontent__header">
-                        <h2>Brown Leather Bags</h2>
-                        <a class="view_close product-p-close" href="javascript:void(0)"><i
-                                class="fal fa-times-circle"></i></a>
-                    </div>
-                    <div class="viewcontent__rating">
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star ratingcolor"></i>
-                        <i class="fal fa-star"></i>
-                    </div>
-                    <div class="viewcontent__price">
-                        <h4><span>$</span>99.00</h4>
-                    </div>
-                    <div class="viewcontent__stock">
-                        <h4>Available :<span> In stock</span></h4>
-                    </div>
-                    <div class="viewcontent__details">
-                        <p>Anlor sit amet, consectetur adipiscing elit. Fusce condimentum est lacus, non pretium
-                            risus lacinia vel. Fusce eget turpis orci.</p>
-                    </div>
-                    <div class="viewcontent__action">
-                        <span>Qty</span>
-                        <span><input type="number" placeholder="1"></span>
-                        <span><a href="#">add to cart</a></span>
-                        <span><i class="fal fa-heart"></i></span>
-                        <span><i class="fal fa-info-circle"></i></span>
-                    </div>
-                    <div class="viewcontent__footer">
-                        <ul>
-                            <li>Category:</li>
-                            <li>SKU:</li>
-                            <li>Brand:</li>
-                        </ul>
-                        <ul>
-                            <li>Watches</li>
-                            <li>2584-MK63</li>
-                            <li>Brenda</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+           <h1 class="text-center
+           ">No items in the Cart</h1>
+           <br>       <a href="/shop"> <button  class="text center
+        ">Shop Now</button> </a>
         </div>
+
     </div>
 </div>
-<!-- popup area end -->
-<script src="../../../public/user/assets/js/shop/shop.js"></script>
+<%}%>
+
+
+
+                                    <script src="./user/assets/js/shop/cart.js"></script>
+                                    

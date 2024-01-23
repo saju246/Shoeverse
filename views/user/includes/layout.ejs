@@ -78,7 +78,8 @@
         <div class="gota_bottom position-relative">
             <div class="container-fluid">
                 <div class="row align-items-center">
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 d-none d-sm-block">
+                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 d-none d-sm-block">
+                       <% if(title=="SHOP"){ %> 
                         <div class="gota_search">
                             <form class="search_form">
                                 <button class="search_action"><i
@@ -86,6 +87,9 @@
                                 <input type="text" placeholder="search" />
                             </form>
                         </div>
+                  <% }else{ %>
+                    <div></div>
+                    <% } %>
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-4 col-sm-4">
                         <div class="sidemenu sidemenu-1 d-lg-none d-md-block">
@@ -156,16 +160,60 @@
                         </div>
 
                     </div>
-                    <!-- <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                         <div class="gota_cart gotat_cart_1 text-end">
-                            <a href="javascript:void(0)"><i class="fal fa-shopping-cart"></i>My Bag<span class="counter"> (2)</span></a>
+                            <a href="javascript:void(0)"><i class="fal fa-shopping-cart"></i>My Bag
+                                <!-- <span class="counter"> (2)</span> -->
+                            </a>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
     </header>
-  
+   <!-- cart area start  -->
+   <div class="cart__sidebar">
+    <div class="container">
+        <div class="cart__content">
+            <div class="cart-text">
+                <h3 class="mb-40">Shopping cart</h3>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="/user/assets/img/product/29-3.jpg" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a href="shop.html">Running 3-Stripes</a></h5>
+                        <p>1 × $66.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="add_cart_product">
+                    <div class="add_cart_product__thumb">
+                        <img src="/user/assets/img/product/17.jpg" alt="">
+                    </div>
+                    <div class="add_cart_product__content">
+                        <h5><a href="shop.html">Buddy non Stripes</a></h5>
+                        <p>1 × $40.00</p>
+                        <button class="cart_close"><i class="fal fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-icon">
+                <i class="fal fa-times"></i>
+            </div>
+            <div class="cart-bottom">
+                <div class="cart-bottom__text">
+                    <span>Subtotal:</span>
+                    <span class="end">$121.00</span>
+                    <a href="cart">view cart</a>
+                    <a href="checkout.html">checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-offcanvas-overlay"></div>
+<!-- cart area end  -->
 
     <%- body %>
 

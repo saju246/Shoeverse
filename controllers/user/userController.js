@@ -18,7 +18,7 @@ const loadIndex = asynchandler(async(req,res)=>{
     .populate("images")
     .limit(8);
     // const banner = await Banner.find({isActive:true}).limit(1);
-    res.render('./user/pages/index',{topProduct})
+    res.render('./user/pages/index',{title:"SHOEVERSE",topProduct})
 
   }catch(error){
     throw new Error(error.message)
@@ -29,7 +29,7 @@ const loadIndex = asynchandler(async(req,res)=>{
 //------------------------------------load register page--------------------------------
 const loadRegister = async (req, res) => {
   try {
-    res.render("./user/pages/register");
+    res.render("./user/pages/register",{title:"SHOEVERSE"});
   } catch (error) {
     console.log(error.message);
   }
@@ -73,7 +73,7 @@ const insertUser = async (req, res) => {
       if (newUser) {
         res.redirect("/verifyOtp");
       } else {
-        res.render("register", {
+        res.render("register", {title:"SHOEVERSE",
           message: "Your registration has been failed.",
         });
       }
@@ -93,7 +93,7 @@ const loadOtp = async (req, res) => {
 
     const messages = req.flash();
 
-    res.render("./user/pages/verifyOtp", { email, messages });
+    res.render("./user/pages/verifyOtp", { title:"SHOEVERSE",email, messages });
   } catch (error) {
     console.log(error.message);
   }
@@ -149,7 +149,7 @@ const resendOtp = asynchandler(async(req,res)=>{
 const loadLogin = async (req, res) => {
   try {
     const messages=req.flash()
-    res.render("./user/pages/login",{messages});
+    res.render("./user/pages/login",{title:"SHOEVERSE",messages});
   } catch (error) {
     console.log(error.message);
   }

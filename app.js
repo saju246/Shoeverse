@@ -11,6 +11,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const override = require("method-override");
 const expressLayouts = require('express-ejs-layouts')
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -75,6 +76,8 @@ app.use("/", userRoute);
 
 const adminRoute = require('./routes/adminRoute');
 app.use('/admin',adminRoute)
+
+app.use(errorHandler);
 
 // Set the port
 const PORT = process.env.PORT || 4000;

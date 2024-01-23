@@ -122,6 +122,7 @@ const incQuantity = asyncHandler(async (req, res) => {
   try {
     const productId = req.params.id;
     const userId = req.user.id;
+    console.log(productId+"............"+userId);
     await incrementQuantity(userId, productId, res);
   } catch (error) {
     throw new Error(error.message);
