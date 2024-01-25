@@ -1,0 +1,150 @@
+
+
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="osahan-account-page-right shadow-sm">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+              <div style="display: flex; justify-content: space-between">
+                <h2  style="margin-bottom: 20px" >Address List</h2>
+                <a class="list-btn-style" href="/addAddress">Add Address</a>
+              </div>
+              <% if(address.length>0){ %> <% address.forEach((element,index)=>{ %>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="bg-white card addresses-item mb-4">
+                    <div class="gold-members p-4">
+                      <div class="media">
+                        <div class="media-body">
+                          <h4  id="address">Address <%= index + 1 %></h4>
+                          <p class="card-text"><%= element.name %></p>
+                          <p class="card-text"><%= element.address %></p>
+                          <p class="card-text"><%= element.town %></p>
+                          <p class="card-text"><%= element.state %></p>
+                          <p class="card-text"><%= element.postcode %></p>
+                          <p class="card-text"><%= element.mobile %></p>
+                          <p class="mb-0">
+                            <a class="list-btn-style" data-toggle="modal" href="/editAddress/<%= element._id %>">
+                              <i class=""></i> EDIT
+                            </a>
+                            <% if(index>0){ %>
+                              <a class="list-btn-style" data-toggle="modal" data-target="#delete-address-modal" href="#" onclick="deleteAddress('<%= element._id %>')">
+                              <i class=""></i> DELETE
+                            </a>
+                            <% } %>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% }) %> <% }else{ %>
+              <div class="row">
+                <h3 class="text-center text-warning">
+                  You have no saved address! , Please add an Address.
+                </h3>
+              </div>
+              <% }%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<style>
+   
+   .breadcrumb-area {
+      background-color: #ffffff;
+      color: rgb(255, 255, 255);
+    }
+
+    .breadcrumb-content ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    #address {
+        color: #000000;
+    }
+    
+    .breadcrumb-content ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .breadcrumb-content h3 {
+      margin: 0;
+    }
+
+    .osahan-account-page-right {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    .list-btn-style {
+  max-width: 160px;
+  max-height: 50px;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  line-height: 2.5;
+  border-radius: 8px;
+  display: flex; /* Added flex display */
+  align-items: center; /* Vertically center the text */
+  justify-content: center;
+  text-decoration: none;
+  font-size: 18px; /* Adjusted font size */
+  padding: 12px 20px;
+  margin-top: 5px; /* Added margin top for spacing */
+}
+
+    .list-btn-style:hover {
+      background-color: #9a41bd;
+      color: rgb(0, 0, 0);
+    }
+
+    .addresses-item {
+      border: 1px solid #000000;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .addresses-item h4 {
+      color: #000000;
+      font-size: 24px; /* Adjusted font size */
+    }
+
+    .addresses-item p {
+      margin-bottom: 10px; /* Adjusted margin */
+      font-size: 16px; /* Adjusted font size */
+    }
+
+    .addresses-item a {
+      color: #ffffff;
+    }
+
+    .addresses-item a:hover {
+      text-decoration: none;
+    }
+  </style>
+
+<script>
+  function deleteAddress(addressId) {
+  
+    fetch(`/deleteAddress/${addressId}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+    
+      location.reload();
+    })
+    .catch(error => {
+      console.error('Error deleting address:', error);
+    });
+  }
+</script>

@@ -1,0 +1,148 @@
+
+  
+
+
+    <div class="address-container">
+        <form action="/addAddress" method="POST">
+            <h1>ADDRESS</h1>
+            <div class="checkout-form-list">
+                <label for="name">Name <span class="required">*</span></label>
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+            </div>
+
+            <div class="checkout-form-list">
+                <label for="address">Address <span class="required">*</span></label>
+                <input type="text" name="address" id="address" placeholder="Street Address" required>
+            </div>
+
+            <div class="checkout-form-list">
+                <label for="state">State <span class="required">*</span></label>
+                <select name="state" id="state" class="form-control" required>
+                    <option value="">Select State</option>
+                    
+                    <option value="andhra_pradesh">Andhra Pradesh</option>
+                    <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal_pradesh">Himachal Pradesh</option>
+                    <option value="jammu_kashmir">Jammu and Kashmir</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya_pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil_nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar_pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west_bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <div class="checkout-form-list">
+                <label for="town">Town/City <span class="required">*</span></label>
+                <input type="text" name="town" id="town" placeholder="Your Town" required>
+            </div>
+
+            <div class="checkout-form-list">
+                <label for="postcode">Postcode / Zip <span class="required">*</span></label>
+                <input type="text" name="postcode" id="postcode" placeholder="Your postalcode" required>
+            </div>
+
+            <div class="checkout-form-list">
+                <label for="mobile">Phone <span class="required">*</span></label>
+                <input type="tel" name="phone" id="mobile" placeholder="Your mobileNo" required>
+            </div>
+
+            <button type="submit">SAVE</button>
+        </form>
+    </div>
+
+    <style>
+        .address-container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .checkout-form-list {
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input::placeholder,
+        select::placeholder {
+            color: #000000; /* Change this to the desired placeholder color */
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #000000; /* Outline color when focused (active) */
+        }
+
+        input:not(:focus),
+        select:not(:focus) {
+            border-color: #000000; /* Outline color when not focused (inactive) */
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #3498db;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+    </style>

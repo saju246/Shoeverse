@@ -1,122 +1,116 @@
-
-
 <div class="fix">
-    <div class="side-info">
-        <button class="side-info-close"><i class="fal fa-times"></i></button>
-        <div class="side-info-content">
-            <div class="mobile-menu"></div>
-            <div class="contact-infos mb-30">
-                <div class="contact-list mb-30">
-                    <h4>Office Address</h4>
-                    <p>123/A, Miranda City Likaoli
-                        Prikano, Dope</p>
-                </div>
-                <div class="contact-list mb-30">
-                    <h4>Phone Number</h4>
-                    <p>+0989 7876 9865 9</p>
-                    <p>+(090) 8765 86543 85</p>
-                </div>
-                <div class="contact-list mb-30">
-                    <h4>Email Address</h4>
-                    <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
-                            data-cfemail="92fbfcf4fdd2f7eaf3ffe2fef7bcf1fdff">[email&#160;protected]</a></p>
-                    <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__"
-                            data-cfemail="25405d44485549400b48444c49654d50480b464a48">[email&#160;protected]</a></p>
-                </div>
-            </div>
+  <div class="side-info">
+    <button class="side-info-close"><i class="fal fa-times"></i></button>
+    <div class="side-info-content">
+      <div class="mobile-menu"></div>
+      <div class="contact-infos mb-30">
+        <div class="contact-list mb-30">
+          <h4>Office Address</h4>
+          <p>123/A, Miranda City Likaoli
+            Prikano, Dope</p>
         </div>
+        <div class="contact-list mb-30">
+          <h4>Phone Number</h4>
+          <p>+0989 7876 9865 9</p>
+          <p>+(090) 8765 86543 85</p>
+        </div>
+        <div class="contact-list mb-30">
+          <h4>Email Address</h4>
+          <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92fbfcf4fdd2f7eaf3ffe2fef7bcf1fdff">[email&#160;protected]</a></p>
+          <p><a href="https://wphix.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="25405d44485549400b48444c49654d50480b464a48">[email&#160;protected]</a></p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="offcanvas-overlay"></div>
 
 
 <% if ( cartItems && cartItems.products && cartItems.products.length) { %>
-<div class="f_cart_area pt-110 mb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-8 col-lg-8 col-md-12">
-                <form action="/checkout" method="post" ">
-                    <div class=" cart_table">
-                  
-                        <table>
-                            <tr>
-                                <td>Product</td>
-                                <td></td>
-                                <td>price</td>
-                                <td>Quantity</td>
-                                <td>Total</td>
+<form action="/checkout" method="post" ">
+    <div class=" f_cart_area pt-110 mb-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12">
+        <div class=" cart_table">
 
-                            </tr>
-                            <% cartItems?.products?.forEach((product,index)=> { %>
-                                <tbody>
-                                    <tr class="max-width-set">
-                                        <td>
-                                            <a href="/viewProduct/<%=product.product?._id %>">
-                                                <% if (product.product && product.product.images &&
-                                                    product.product.images[0] && product.product.images[0].thumbnailUrl)
-                                                    { %>
-                                                    <img src="<%= product.product.images[0].thumbnailUrl %>"
-                                                        alt="Thumbnail" class="img-thumbnail" />
-                                                    <% } else { %>
-                                                        <!-- Handle the case where thumbnailUrl is not available -->
-                                                        <img src="placeholder-thumbnail-url.jpg" alt="Placeholder"
-                                                            class="img-thumbnail" />
-                                                        <% } %>
-                                            </a>
-                                        </td>
-                                        <td> <a href="/product/<%= product.product._id %>">
-                                                <%= product.product.title %>
-                                            </a>
-                                            <% if (product.product.isDeleted) { %>
-                                                <p class="text-danger">Currently Unavailable</p>
-                                                <% } else if (product.product.quantity < product.quantity) { %>
-                                                    <p class="text-danger">Out of Stock</p>
-                                                    <% } %>
-                                        </td>
-                                        <td><span>$ <span class="amount">
-                                                    <% const productPrice=parseFloat(product.product.salePrice) %>
-                                                        <%= productPrice.toFixed(2) %>
-                                                </span></span> </td>
-                                        <td>
-                                            <div class="viewcontent__action single_action pt-30">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-outline-secondary h-auto minusBtn"
-                                                    data-product-id="<%= product.product._id %>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /></svg>
-                                                </a>
-                                                <span class="btn btn-dark h-auto quantity"
-                                                    id="quantity_<%= product.product._id %>">
-                                                    <%= product.quantity %>
-                                                </span>
+          <table>
+            <tr>
+              <td>Product</td>
+              <td></td>
+              <td>price</td>
+              <td>Quantity</td>
+              <td>Total</td>
 
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-outline-secondary h-auto plusBtn"
-                                                    data-product-id="<%= product.product._id %>" id="plusBtn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                                                </a>
-                                            </div>
-                                        </td class="product-subtotal" id="totalProductPrice_<%= product.product._id %>">
+            </tr>
+            <% cartItems?.products?.forEach((product,index)=> { %>
+            <tbody>
+              <tr class="max-width-set">
+                <td>
+                  <a href="/viewProduct/<%=product.product?._id %>">
+                    <% if (product.product && product.product.images && product.product.images[0] &&
+                          product.product.images[0].thumbnailUrl) { %>
+                    <img src="<%= product.product.images[0].thumbnailUrl %>" alt="Thumbnail" class="img-thumbnail" />
+                    <% } else { %>
+                    <!-- Handle the case where thumbnailUrl is not available -->
+                    <img src="placeholder-thumbnail-url.jpg" alt="Placeholder" class="img-thumbnail" />
+                    <% } %>
+                  </a>
+                </td>
+                <td> <a href="/product/<%= product.product._id %>">
+                    <%= product.product.title %>
+                  </a>
+                  <% if (product.product.isDeleted) { %>
+                  <p class="text-danger">Currently Unavailable</p>
+                  <% } else if (product.product.quantity < product.quantity) { %>
+                  <p class="text-danger">Out of Stock</p>
+                  <% } %>
+                </td>
+                <td><span>$ <span class="amount">
+                      <% const productPrice=parseFloat(product.product.salePrice) %>
+                      <%= productPrice.toFixed(2) %>
+                    </span></span> </td>
+                <td>
+                  <div class="viewcontent__action single_action pt-30">
+                    <a href="javascript:void(0);" class="btn btn-outline-secondary h-auto minusBtn" data-product-id="<%= product.product._id %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l14 0" />
+                      </svg>
+                    </a>
+                    <span class="btn btn-dark h-auto quantity" id="quantity_<%= product.product._id %>">
+                      <%= product.quantity %>
+                    </span>
 
-                                        <td class="product-subtotal" id="totalProductPrice_<%= product.product._id %>">
-                                            <% if (product.product) { %>
-                                                <% const productTotal=parseFloat(product.product.salePrice); %>
-                                                    <% const productQuantity=parseInt(product.quantity, 10); %>
-                                                        <% const totalProductPrice=productTotal * productQuantity; %>
-                                                            <%= totalProductPrice.toFixed(2) %>
-                                                                <% } else { %>
-                                                                    <!-- Handle the case where product information is not available -->
-                                                                    ₹0.00 <% } %>
-                                        </td>
-                                        </td>
-                                        <td class="width-set">
-                                            <a href="/cart/remove/<%= product.product._id %>"><i
-                                                    class="fal fa-times-circle"></i></a>
-                                        </td>
-                                    </tr>
+                    <a href="javascript:void(0);" class="btn btn-outline-secondary h-auto plusBtn" data-product-id="<%= product.product._id %>" id="plusBtn">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M5 12l14 0" />
+                      </svg>
+                    </a>
+                  </div>
+                </td class="product-subtotal" id="totalProductPrice_<%= product.product._id %>">
 
-                                </tbody>
-                                <% }) %>
-                                    <!-- <tfoot>
+                <td class="product-subtotal" id="totalProductPrice_<%= product.product._id %>">
+                  <% if (product.product) { %>
+                  <% const productTotal=parseFloat(product.product.salePrice); %>
+                  <% const productQuantity=parseInt(product.quantity, 10); %>
+                  <% const totalProductPrice=productTotal * productQuantity; %>
+                  <%= totalProductPrice.toFixed(2) %>
+                  <% } else { %>
+                  <!-- Handle the case where product information is not available -->
+                  ₹0.00 <% } %>
+                </td>
+                </td>
+                <td class="width-set">
+                  <a href="/cart/remove/<%= product.product._id %>"><i class="fal fa-times-circle"></i></a>
+                </td>
+              </tr>
+
+            </tbody>
+            <% }) %>
+            <!-- <tfoot>
                                         <tr class="design-footer">
                                             <td>
                                                 <input type="text" placeholder="Coupon Code">
@@ -127,9 +121,8 @@
                                     </tfoot> --!>
                         </table>
                        
-                </form>
-            </div>
-        </div>
+                        </div>
+                        </div>
         <div class="col-xl-4 col-lg-4 col-md-12">
             <div class="cart__acount">
                 <h5>Cart totals</h5>
@@ -150,30 +143,49 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="checkout"><input type="submit" value="procced to checkout"></a>
-                        </td>
-                    </tr>
+                            <% if (cartItems.products.some(product=>
+                product.product.quantity < product.quantity ) ||
+                cartItems.products.some(product=> product.product.isDeleted)) {
+                %>
+                <button
+                  class="btn btn-secondary cursor-na btn-dark"
+                  type="submit"
+                  disabled
+                >
+                  Proceed to checkout
+                </button>
+                <% } else { %>
+                <button id="checkoutBtn" class="btn btn-dark" >
+                  Proceed to checkout
+                </button>
+                <% } %>
+                </td>
+        </tr>
 
                 </table>
+                </div>
+                </div>
+                </div>
+                </div>
+                </form>
+                <% }else{ %>
+                    <<div class="f_cart_area pt-110 mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>No items in the Cart</h1>
+                <br>
+                <a href="/shop">
+                    <button class="btn btn-primary mx-auto">Shop Now</button>
+                </a>
             </div>
         </div>
     </div>
 </div>
-<% }else{ %>
-    <div class="f_cart_area pt-110 mb-100">
-    <div class="container">
-        <div class="row">
-           <h1 class="text-center
-           ">No items in the Cart</h1>
-           <br>       <a href="/shop"> <button  class="text center
-        ">Shop Now</button> </a>
-        </div>
 
-    </div>
-</div>
-<%}%>
-
-
+        <%}%>
+        
+        
 
                                     <script src="./user/assets/js/shop/cart.js"></script>
                                     

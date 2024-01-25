@@ -1,0 +1,246 @@
+<div class="checkout_area pt-80">
+  <div class="container">
+    <div class="notification__message">
+      <p><i class="fal fa-window-maximize"></i>Returning customer? Click here to <a href="login">login</a></p>
+      <!-- <div class="coupon-accordion">
+
+                    <p><i class="fal fa-window-maximize"></i>Have a coupon? Click here to enter your code</p>
+                    <div id="checkout_coupon" class="coupon-checkout-content col-lg-6">
+                        <div class="coupon-info d-flex">
+                          <button id="rmCoupon" type="button" class="btn btn-sm">
+                            <i class="ti ti-close text-danger fw-bolder"></i>
+                          </button>
+                          <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text" oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();" />
+                          <input class="button" name="apply_coupon" id="couponBtn" type="button" value="Apply coupon" />
+                        </div>
+                     
+                        <h6 class="mt-2 text-success" id="couponError">
+
+                        </h6>
+                     
+                        <h6 class="mt-2 text-danger" id="couponError">
+                          No coupons available
+                        </h6>
+                     
+                      </div>
+                </div> -->
+    </div>
+    <form action="/placeOrder" method="post">
+      <div class="row">
+        <div class="col-xl-7 col-lg-7 col-md-12">
+          <div class="checkout_form mb-100">
+            <div class="checkbox-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox-form">
+                    <div class="d-flex">
+                      <h3>Select Address</h3>
+                      <a href="/addAddress" class="btn bg-white text-danger rounded btn-outline-white">Add</a>
+                    </div>
+                    <div class="different-address">
+                      <div id="" class="row">
+                        <% if (address && address.length) { %> <%
+                                        address.forEach((item, index) => { %>
+                        <div class="col-md-8 mb-3">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="addressId" id="address<%= index %>" value="<%= item._id %>" required <%= index === 0 ?
+                                                "checked" : "" %> />
+                                <label class="form-check-label" for="address<%= index %>">
+                                  <h5 class="card-title"><%= item.name %></h5>
+                                  <p class="card-text">
+                                    <%= item.address %>, <%= item.town %>, <%=
+                                                    item.state %>, <%= item.postcode %>
+                                  </p>
+                                  <p class="card-text">
+                                    Mobile: +91 <%= item.mobile %>
+                                  </p>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <% }) %> <% } else { %>
+                        <p class="text-danger text-center fs-1 p-5">
+                          No Address Found
+                        </p>
+
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5 col-lg-5 col-md-12">
+          <div class="cart__acount ml-50">
+            <h5>Your order</h5>
+            <input type="hidden" id="originalCartData" name="currentCartData" value="<%= JSON.stringify(cartData) %>" />
+            <table>
+              <% product.forEach(item=>{%>
+              <tr class="first-child-2">
+                <td>product</td>
+                <td><% if (item.product.title.length> 36) { %>
+                  <small>
+                    <%= item.product.title.substring(0, 36) + '...' %>
+                  </small>
+                  <% } else { %> <small> <%= item.product.title %> </small> <%
+                    } %>
+                  <strong class="product-quantity">
+                    <%=item.quantity %></strong>
+                </td>
+              </tr>
+              <tr class="first-child-2">
+                <td>Subtotal</td>
+                <td class="lightbluee"> <span class="amount"> <span>$</span><%=item.product.salePrice*item.quantity %></span></td>
+              </tr>
+
+              <tr class="first-child-2">
+                <td>Total</td>
+                <td class="lightbluee"><span class="amount">$ <%= subtotal %></span></td>
+              </tr>
+              <% }) %>
+            </table>
+            <div class="payment-method">
+              <div class="payment-accordion">
+                <div class="payment-method">
+                  <label for="payment-method-select">Select Payment Method:</label>
+                </div>
+                <% if (address && address.length) { %>
+                <div class="order-button-payment d-flex flex-column gap-2">
+                  <button type="button" class="btn btn-dark h-auto rounded-0 fw-bold" style="padding: 12px" id="cod-button">
+                    CASH ON DELIVERY
+                  </button>
+                </div>
+                <% } else { %> <span class="text-danger">Please Add an Address</span> <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let  selectedAddressId = null;
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.querySelector("form");
+    const codBtn = document.getElementById("cod-button");
+    const addressRadios = document.querySelectorAll('input[name="addressId"]');
+    const firstRadio = document.querySelector('input[name="addressId"]:checked');
+
+    if (firstRadio) {
+      selectedAddressId = firstRadio.value;
+    }
+
+    addressRadios.forEach((radio) => {
+      radio.addEventListener("change", (event) => {
+        selectedAddressId = event.target.value;
+      });
+    });
+
+
+    codBtn.addEventListener("click", handleCodButtonClick);
+  });
+
+  async function handleCodButtonClick(event) {
+    event.preventDefault();
+    if (await checkCartData()) {
+      const data = {
+        addressId: selectedAddressId,
+        payment_method: "cash_on_delivery",
+
+      };
+      await placeOrder("/placeOrder", data);
+    }
+  }
+
+  async function placeOrder(url, data) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        
+        throw new Error("Network response was not ok");
+      }
+      // console.log(response.json());
+      const responseData = await response.json();
+      console.log(responseData);
+      if (data.payment_method === "cash_on_delivery") {
+        handleCodPayment(responseData);
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  async function checkCartData() {
+    try {
+      const originalCartData = JSON.parse(document.getElementById("originalCartData").value);
+      const response = await fetch("/checkout/get");
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const currentCartData = await response.json();
+
+      if (currentCartData !== null && compareJSONStrings(originalCartData, currentCartData)) {
+        showCartConfirmation();
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
+  function compareJSONStrings(jsonString1, jsonString2) {
+    return JSON.stringify(jsonString1) !== JSON.stringify(jsonString2);
+  }
+
+  function showCartConfirmation() {
+    Swal.fire({
+      title: "Cart Confirmation",
+      text: "Your cart has changed. Do you want to reload the page?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Reload",
+      cancelButtonText: "Close",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        proceedToCheckout();
+      }
+    });
+  }
+
+
+  function proceedToCheckout() {
+    window.location.reload();
+  }
+
+
+  function handleCodPayment(responseData) {
+    window.location.href = `/orderPlaced/${responseData.orderId}`;
+  }
+
+
+
+  function handleError(error) {
+    console.error("Error:", error);
+  }
+</script>
