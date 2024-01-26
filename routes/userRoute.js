@@ -20,6 +20,19 @@ const { validate } = require("../models/addressModel");
 
 userRoute.set('layout','./user/includes/layout.ejs')
 
+// const session = require('express-session')
+// const mongoDBSession=require('connect-mongodb-session')(session)
+// const store=new mongoDBSession({
+//     uri:process.env.MONGODB_URL,
+//     collection:'user_session'
+// })
+// userRoute.use(session({
+//     secret:process.env.SECRET,
+//     resave:false,
+//     saveUninitialized:false,
+//     store:store
+// }))
+
 // ------------------------------auth methods-----------------------------
 
 /*get methods*/
@@ -29,8 +42,12 @@ userRoute.get("/register",ensureNotAuthenticated, userController.loadRegister);
 userRoute.get("/login",ensureNotAuthenticated, userController.loadLogin);
 userRoute.get('/resendOtp',ensureNotAuthenticated,userController.resendOtp);
 userRoute.get("/verifyOtp", ensureNotAuthenticated,userController.loadOtp);
+userRoute.get( "/sendEmail",ensureNotAuthenticated,userController.loadSendEmail);
+userRoute.get( "/verifyEmail",ensureNotAuthenticated, userController.LoadVerifyEmail);
+userRoute.get("/reverifyEmail",ensureNotAuthenticated,userController.reverifyEmail);
 userRoute.get("/logout",ensureAuthenticated, userController.logout);
-
+userRoute.get("/account", ensureAuthenticated, userController.loadAccount);
+userRoute.post("/account", ensureAuthenticated, userController.editProfile);
 
 
 /*post methods*/
@@ -48,8 +65,14 @@ userRoute.post(
 userRoute.post("/verifyOtp", userController.verifyOtp);
 userRoute.post("/checkEmail", userController.checkEmail);
 userRoute.post("/logout",  userController.logout);
-
-
+userRoute.post("/sendEmail", userController.sendEmail);
+userRoute.post("/verifyEmail", userController.verifyEmail);
+userRoute.get("/forgotPassword", userController.loadforgotPassword);
+userRoute.post("/forgotPassword", userController.forgotPassword);
+userRoute.post("/resetPassword/:id", userController.resetPassword);
+userRoute.get("/newPassword", userController.loadnewPassword);
+userRoute.post("/newPassword", userController.newPassword);
+userRoute.get("/changePassword",ensureAuthenticated,userController.changePassword);
 
 // ------------------------shop page----------------------------------
 
@@ -88,7 +111,10 @@ userRoute.post('/editAddress/:id',validateID,ensureAuthenticated,addressControll
 userRoute.delete('/deleteAddress/:id', validateID, ensureAuthenticated, addressController.deleteAddress);
 
 // ------------------------------------order routes -----------------------------
-
+userRoute.get("/order", ensureAuthenticated, orderController.orderspage);
+userRoute.get("/orders/:id",ensureAuthenticated, orderController.singleOrder);
+userRoute.put("/orders/:id",ensureAuthenticated, orderController.cancelOrder);
+userRoute.get("/cancelOrder/:id", ensureAuthenticated,orderController.cancelSingleOrder);
 
 
 module.exports = userRoute;

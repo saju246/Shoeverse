@@ -19,18 +19,18 @@
                             </div>
                             <div class="input_wrap">
                                 <label>Password<span>*</span></label>
-                                <input type="password" required id="passInput" value="saju" name="password">
+                                <input type="password" required id="passInput" value="Saju@1" name="password">
                                 <span class="show-pass"><i class="far fa-eye-slash"></i></span>
                                 <div id="passwordError"></div>
                             </div>
                             <div class="input_wrap">
                                 <button type="submit" id="submitButton" value="login">Log in</button>
                             </div>
+                            <%- include('../includes/flashMessage') %>
                             <div class="input_wrap">
-                                <a href="#">Lost your password?</a>
-                                <%- include('../includes/flashMessage') %>
+                                <a href="/forgotPassword">Lost your password?</a>
                             </div>
-                            <div id="formErrors"></div>
+                            <div id="input_wrap"></div>
                             <a href="/register">dont have an account?</a>
                         </form>
                     </div>
