@@ -1,6 +1,12 @@
-
 <!-- < include('../includes/header') %> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Include SweetAlert CSS and JS files -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.all.min.js"></script>
+
+<!-- Bootstrap JS with Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="container  table-responsive  ">
   <h1>USER LIST</h1>
@@ -19,39 +25,38 @@
             </thead>
             <tbody class="bg-white">
 
-            <% if(users.length >0){
+              <% if(users.length >0){
                 for(let i=0;i<users.length;i++){%>
 
-            <%if(users.firstName==="Admin"){continue;}%>
+              <%if(users.firstName==="Admin"){continue;}%>
 
 
-            <tr>
-              <td><%= users[i].firstName%></td>
-              <td><%= users[i].email%></td>
-              <td><% if(users[i].isBlock) { %>
-                <form action="/admin/unblockUser/<%- users[i]?._id %>" method="post">
-                  <button type="submit" class="btn btn-success btn-sm unblock-button">Unblock</button>
+              <tr>
+                <td><%= users[i].firstName%></td>
+                <td><%= users[i].email%></td>
+               <td> <% if (users[i].isBlock) { %>
+                <form id="unblockUserForm<%- users[i]._id %>" action="/admin/unblockUser/<%- users[i]._id %>" method="post">
+                  <button type="button" class="btn btn-success btn-sm unblock-button" data-bs-toggle="modal" data-bs-target="#confirmationModal" data-user-id="<%- users[i]._id %>">Unblock</button>
                 </form>
                 <% } else { %>
-                <form action="/admin/blockUser/<%- users[i]?._id %>" method="post">
-                  <button type="submit" class="btn btn-danger btn-sm block-button"> Block</button>
+                <form id="blockUserForm<%- users[i]._id %>" action="/admin/blockUser/<%- users[i]._id %>" method="post">
+                  <button type="button" class="btn btn-danger btn-sm block-button" data-bs-toggle="modal" data-bs-target="#confirmationModal" data-user-id="<%- users[i]._id %>">Block</button>
                 </form>
                 <% } %>
-              </td>
+               </td>
+              </tr>
 
-            </tr>
-
-            <%
+              <%
                 }
 
             }else{
                 %>
-            <tr>
-              <td>
-                Users Not Found
-              </td>
-            </tr>
-            <%	
+              <tr>
+                <td>
+                  Users Not Found
+                </td>
+              </tr>
+              <%	
             }
             %>
             </tbody>
@@ -62,28 +67,73 @@
   </div>
 </div>
 
+<!-- Add this modal structure at the end of your HTML body -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to perform this action?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-// < include('../includes/footer') %>
+//
 
-<style>
-  .container {
-    position: absolute;
-    margin-top: 100px;
-    text-align: center;
-  }
+< include('../includes/footer') %>
 
-  /* Custom CSS for the search box */
-  .search-box {
-    position: fixed;
-    /* Adjust the left position as needed */
-    top: 10%;
-    /* Adjust the top position as needed */
+  <style>
+    .container {
+      position: absolute;
+      margin-top: 100px;
+      text-align: center;
+    }
 
-    background-color: #fff;
+    /* Custom CSS for the search box */
+    .search-box {
+      position: fixed;
+      /* Adjust the left position as needed */
+      top: 10%;
+      /* Adjust the top position as needed */
 
-    padding: 10px;
+      background-color: #fff;
 
-  }
-</style>
+      padding: 10px;
+
+    }
+  </style>
+  
+
+  <script>
+    $(document).ready(function() {
+      // Handle the confirmation modal
+      $('#confirmationModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var userId = button.data('user-id');
+
+        // Update the "Confirm" button to trigger the appropriate form submission
+        $('#confirmActionBtn').off('click').on('click', function() {
+          if (button.hasClass('block-button')) {
+            // Block user action
+            $('#blockUserForm' + userId).submit();
+          } else if (button.hasClass('unblock-button')) {
+            // Unblock user action
+            $('#unblockUserForm' + userId).submit();
+          }
+
+          // Close the modal
+          $('#confirmationModal').modal('hide');
+        });
+      });
+    });
+  </script>

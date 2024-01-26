@@ -32,7 +32,7 @@
           
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary danger" data-mdb-dismiss="modal">Close</button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <button type="submit" class="btn btn-secondary danger" id="saveChangesBtn" disabled>Save changes</button>
         </div>
         </form>
@@ -224,6 +224,13 @@
     const saveChangesBtn = $('#saveChangesBtn');
     saveChangesBtn.prop('disabled', !(isNameValid && isNumberValid));
   }
+  
+  $(document).ready(function() {
+    // Manually handle close button click event
+    $('.modal .btn-close').on('click', function() {
+      $('#exampleModal').modal('hide');
+    });
+  });
 
   $(document).ready(function() {
     // ... your existing script ...

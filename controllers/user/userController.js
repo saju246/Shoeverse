@@ -126,7 +126,6 @@ const verifyOtp = async (req, res) => {
     res.status(500).send("verify otp Error");
   }
 };
-
 // --------------------------------------------resend otp--------------------------------------
 
 const resendOtp = asynchandler(async (req, res) => {
