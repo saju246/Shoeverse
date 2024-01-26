@@ -268,7 +268,7 @@ const sendEmail = asynchandler(async (req, res) => {
       const OTP = otpSetup.generateNumericOTP();
       const otp = new otpdb({ email: email, otp: OTP });
       const otpSave = await otp.save();
-      const name = user.userName;
+      const name = user.firstName;
       const otpSend = otpSetup.sendOtp(email, OTP, name);
       try {
         res.redirect("/verifyEmail");
@@ -330,7 +330,7 @@ const reverifyEmail = asynchandler(async (req, res) => {
     const otp = new otpdb({ email: email, otp: OTP });
     const otpSave = await otp.save();
     const user = await User.findOne({ email: email });
-    const otpSend = otpSetup.sendOtp(email, OTP, user.userName);
+    const otpSend = otpSetup.sendOtp(email, OTP, user.firstName);
     try {
       return res.redirect("/verifyEmail");
     } catch (error) {
@@ -367,7 +367,7 @@ const forgotPassword = asynchandler(async (req, res) => {
       //generate a random reset token-------------------
       const resetToken = await user.createResetPasswordToken();
       await user.save();
-      const name = user.userName;
+      const name = user.firstName;
       const sendToken = await otpSetup.sendToken(email, resetToken, name);
       req.flash('success',"verify link send to the email address")
       res.redirect('/forgotPassword')
@@ -438,9 +438,8 @@ const newPassword = asynchandler(async (req, res) => {
     const email = req.session.email;
     const user = await User.findOne({ email });
     if (user) {
-      const salt = bcrypt.genSaltSync(10);
       
-      const password = await bcrypt.hash(newPassword, salt);
+      const password = newPassword;
       user.password = password;
       user.passwordChangedAt = Date.now();
       user.passwordResetToken = undefined;

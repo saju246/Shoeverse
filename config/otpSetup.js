@@ -68,7 +68,6 @@ function sendOtp(email, otp, name) {
     
     
   `;
-
   const mailOptions = {
     from: `shoeverse.2024@gmail.com`,
     to: email,
@@ -85,11 +84,11 @@ function sendOtp(email, otp, name) {
   });
 }
 
-function sendToken(email, token, name) {
-  const message = `
-    <!-- Your password reset email template here -->
+//-----------------testing------------------------
 
-<!DOCTYPE html>
+function sendToken(email,token, name) {
+  
+  const message = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -142,25 +141,22 @@ function sendToken(email, token, name) {
             <p>WATCHBOX</p>
         </div>
     </body>
-    </html>
-  `;
+    </html>;`
 
   const mailOptions = {
     from: `shoeverse.2024@gmail.com`,
     to: email,
-    subject: "Password Reset Request", 
+    subject: "Your OTP verification code",
     html: message,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error("Error sending password reset email:", error);
+      console.error("Error sending OTP:", error);
     } else {
-      console.log("Password reset email sent:", info.response);
+      console.log("OTP sent:", info.response);
     }
   });
 }
 
 module.exports = { sendOtp, sendToken, generateNumericOTP };
-
-

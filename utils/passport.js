@@ -7,11 +7,12 @@ passport.use(
     { usernameField: "email", passwordField: "password" },
     async (email, password, done) => {
       try {
+        console.log(email)
+        console.log(password)
         const user = await User.findOne({ email });
         if (!user) {
           return done(null, false, { message: "Email not registered" });
         }
-
         const isPasswordValid = await user.isPasswordMatched(password);
         if (!isPasswordValid) {
           return done(null, false, { message: "Invalid Credentials" });
