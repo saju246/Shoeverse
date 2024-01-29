@@ -141,6 +141,8 @@ const decQuantity = asyncHandler(async (req, res) => {
   }
 });
 
+// ---------------------------------count of cart-------------------------------
+
 const getCartCount = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
@@ -156,6 +158,8 @@ const getCartCount = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+// ------------------------------check availablity-----------------------------
 
 const checkProductAvailability = asyncHandler(async (req, res) => {
   try {

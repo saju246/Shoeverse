@@ -9,7 +9,7 @@ const loadShop = asynchandler(async (req, res) => {
   try {
     const user = req.user;
     const page = req.query.p || 1;
-    const limit = 12;
+    const limit = 8;
 
     const listedCategories = await Category.find({ isListed: true });
     const categoryMapping = {};

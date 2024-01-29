@@ -36,9 +36,10 @@ app.set('views', path.join(__dirname, "./views"));
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "./public")));
+app.use('/admin', express.static(path.join(__dirname, './public/admin')));
 
 app.use(flash());
-app.use(
+app.use(  
   session({
     secret: process.env.SECRET,
     resave: false,
@@ -65,8 +66,6 @@ app.use((req, res, next) => {
 // Add nocache middleware
 app.use(nocache());
 
-
-
 // Include express-ejs-layouts middleware
 
 // Routes
@@ -84,6 +83,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 4000;
 
 // Start the server
+
 app.listen(PORT, () => {
   console.log(`Server Started 🚀 http://localhost:${PORT}`);
 });

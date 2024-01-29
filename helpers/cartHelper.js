@@ -89,6 +89,9 @@ const decrementQuantity = async (userId, productId, res) => {
     const updatedCart = await Cart.findOne({ user: userId });
     const productToDecrement = updatedCart.products.find((item) => item.product.equals(productId));
     if (productToDecrement) {
+      if( productToDecrement.quantity <2){
+        return
+      }
         productToDecrement.quantity -= 1;
         if (productToDecrement.quantity <= 0) {
             updatedCart.products = updatedCart.products.filter((item) => !item.product.equals(productId));

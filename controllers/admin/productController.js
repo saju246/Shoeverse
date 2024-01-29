@@ -38,7 +38,6 @@ const addProduct = asynchandler(async (req, res) => {
 });
 
 // ------------------------------insert products----------------------------
-
 const insertProduct = asynchandler(async (req, res) => {
   try {
     const imageUrls = [];
@@ -48,11 +47,18 @@ const insertProduct = asynchandler(async (req, res) => {
 
       for (const file of images) {
         try {
-          imageBuffer = await sharp(file.path).resize(600, 800).toBuffer();
+          const imageBuffer = await sharp(file.path).resize(600, 800).toBuffer();
+          const thumbnailBuffer = await sharp(file.path).resize(300, 300).toBuffer();
 
-          const thumbnailBuffer = await sharp(file.path)
-            .resize(300, 300)
-            .toBuffer();
+          const imageSize = await sharp(imageBuffer).metadata();
+          const thumbnailSize = await sharp(thumbnailBuffer).metadata();
+
+          if (
+            imageSize.width !== 600 || imageSize.height !== 800 ||
+            thumbnailSize.width !== 300 || thumbnailSize.height !== 300
+          ) {
+            throw new Error("Invalid image dimensions");
+          }
 
           const imageUrl = path.join("/admin/uploads", file.filename);
           const thumbnailUrl = path.join("/admin/uploads", file.filename);
@@ -75,12 +81,13 @@ const insertProduct = asynchandler(async (req, res) => {
         brand: req.body.brand,
         images: imageId,
       });
+
       if (newProduct) {
         req.flash("success", "Product Created");
         res.redirect("/admin/products");
       }
     } else {
-      res.status(400).json({ error: "invalid input : no images provided" });
+      res.status(400).json({ error: "Invalid input: no images provided" });
     }
   } catch (error) {
     throw new Error(error);

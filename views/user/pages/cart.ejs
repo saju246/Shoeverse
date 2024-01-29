@@ -1,3 +1,8 @@
+
+<!-- Add this to include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xw8wP5nTU3H2L5zBc2U5PXLo5bApbojJxKLyZDo7W8HSeVw25Gr1xkvLRKiPJd5BDbtVK3gabKcsMtxN6+YJ8Q==" crossorigin="anonymous" />
+
 <div class="fix">
   <div class="side-info">
     <button class="side-info-close"><i class="fal fa-times"></i></button>
@@ -72,12 +77,12 @@
                     </span></span> </td>
                 <td>
                   <div class="viewcontent__action single_action pt-30">
-                    <a href="javascript:void(0);" class="btn btn-outline-secondary h-auto minusBtn" data-product-id="<%= product.product._id %>">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 12l14 0" />
-                      </svg>
-                    </a>
+                    <a href="javascript:void(0);" class="btn btn-outline-secondary h-auto minusBtn decrease-quantity" data-product-id="<%= product.product._id %>">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M5 12l14 0" />
+  </svg>
+</a>
                     <span class="btn btn-dark h-auto quantity" id="quantity_<%= product.product._id %>">
                       <%= product.quantity %>
                     </span>
@@ -105,9 +110,15 @@
                 </td>
                 </td>
                 <td class="width-set">
-                  <a href="/cart/remove/<%= product.product._id %>"><i class="fal fa-times-circle"></i></a>
-                </td>
+  <!-- Modify the link to trigger SweetAlert confirmation -->
+  <a href="#" class="remove-from-cart" data-product-id="<%= product.product._id %>"><i class="fas fa-trash"></i></a>
+</td>
+
               </tr>
+
+              
+
+
 
             </tbody>
             <% }) %>
@@ -121,7 +132,7 @@
                                             <td colspan="3"><a href="#">update cart</a></td>
                                         </tr>
                                     </tfoot> --!>
-                        </table>
+                        </table>  
                        
                         </div>
                         </div>
@@ -194,3 +205,38 @@
 
                                     <script src="./user/assets/js/shop/cart.js"></script>
                                     
+                                    <script>
+  // Add this script to handle SweetAlert confirmation
+  document.addEventListener("DOMContentLoaded", function () {
+    // Select all elements with the class 'remove-from-cart'
+    var removeLinks = document.querySelectorAll('.remove-from-cart');
+
+    // Loop through each link and attach a click event listener
+    removeLinks.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Get the product ID from the data-product-id attribute
+        var productId = link.getAttribute('data-product-id');
+
+        // Show SweetAlert confirmation
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to remove this item from the cart?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user confirms, proceed with the removal
+            window.location.href = '/cart/remove/' + productId;
+          }
+        });
+      });
+    });
+  });
+</script>
+
+
