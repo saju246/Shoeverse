@@ -1,6 +1,10 @@
 
 <!-- <include('../includes/header') %> -->
 
+<!-- Add jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <div class="container">
     
    <h1>Manage Category</h1>
@@ -10,7 +14,7 @@
       <div class="card-body p-4">
         <div class="table-responsive">
   <% if(category.length){ %>  
-  <table id="adminsTable" class="table table-bordered">
+  <table  id="productTable" class="table table-bordered">
     <thead>
       <tr>
         <th>ID</th>
@@ -63,5 +67,14 @@
     text-align: center;
   }
 </style>
+
+<script>
+  $(document).ready(function () {
+      // Initialize DataTable with your table ID
+      $("#productTable").DataTable({
+          responsive: true // Optional: Add this line if you want a responsive table
+      });
+  });
+</script>
 
 <!-- < include('../includes/footer') %> -->

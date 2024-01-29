@@ -22,11 +22,49 @@
               </div>
             </div>
             <div class="col-md-6">
-                <div class="checkout-form-list">
+                <!-- <div class="checkout-form-list">
                   <label>State <span class="required">*</span></label>
-                  <input type="text" name="state" value="<%=address.state %>" id="town" />
-                </div>
-              </div>
+                  <input type="text" name="state" value="<=address.state %>" id="town" />
+                </div> -->
+              <!-- </div> -->
+
+              <div class="checkout-form-list">
+                <label for="state">State <span class="required">*</span></label>
+                <select name="state" id="state" class="form-control" required>
+                    <option value=""  id="town"><%=address.state %></option>
+                    
+                    <option value="andhra_pradesh">Andhra Pradesh</option>
+                    <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal_pradesh">Himachal Pradesh</option>
+                    <option value="jammu_kashmir">Jammu and Kashmir</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya_pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil_nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar_pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west_bengal">West Bengal</option>
+                </select>
+            </div>
+            </div>
       
             <div class="col-md-6">
               <div class="checkout-form-list">
@@ -38,13 +76,13 @@
             <div class="col-md-6">
               <div class="checkout-form-list">
                 <label>Postcode / Zip <span class="required">*</span></label>
-                <input type="text" name="postcode" id="postcode" value="<%= address.postcode  %>" />
+                <input type="number" name="postcode" id="postcode" value="<%= address.postcode  %>" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="checkout-form-list">
                 <label>Phone <span class="required">*</span></label>
-                <input type="number" name="mobile" id="mobile" value="<%=address.mobile %>" />
+                <input type="number" name="mobile" id="mobile" value="<%=address.phone %>" />
               </div>
             </div>
             <!-- <div class="col-md-6">

@@ -1,28 +1,46 @@
 <!-- <include('../includes/header') %> -->
 
+<!-- Add jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <div class="container mt-4">
   <h1 class="text-center mb-3">Product Management</h1>
 
-  <ul class="list-group">
-    <% products.forEach((product, index) => { %>
-      <li class="list-group-item mb-3">
-        <div class="row align-items-center">
-          <div class="col-md-3">
+  <table class="table"  id="productTable">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Sold</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach((product, index) => { %>
+        <tr>
+          <td>
             <img src="<%= product.images && product.images[0] && product.images[0].thumbnailUrl ? product.images[0].thumbnailUrl : 'placeholder-image-url.jpg' %>" alt="Product Image" class="img-fluid rounded">
-          </div>
-          <div class="col-md-9">
-            <h4 class="mb-2">
+          </td>
+          <td>
+            <h4>
               <% if (product.title.length > 15) { %>
                 <%= product.title.substring(0, 15) + "..." %>
               <% } else { %>
                 <%= product.title %>
               <% } %>
             </h4>
-            <p class="mb-1"><strong>Category:</strong> <%= product?.categoryName?.categoryName %></p>
-            <p class="mb-1"><strong>Description:</strong> <%= product.description %></p>
-            <p class="mb-1"><strong>Price:</strong> $<%= product.salePrice %></p>
-            <p class="mb-1"><strong>Stock:</strong> <%= product.quantity %></p>
-            <p class="mb-1"><strong>Sold:</strong> <%= product.sold %></p>
+          </td>
+          <td><%= product?.categoryName?.categoryName %></td>
+          <td><%= product.description %></td>
+          <td>$<%= product.salePrice %></td>
+          <td><%= product.quantity %></td>
+          <td><%= product.sold %></td>
+          <td>
             <div class="d-flex justify-content-end">
               <a href="/admin/product/editProduct/<%= product._id %>" class="btn btn-primary btn-lg me-2">
                 <i class="bi bi-pencil"></i> Edit
@@ -41,11 +59,11 @@
                 </form>
               <% } %>
             </div>
-          </div>
-        </div>
-      </li>
-    <% }) %>
-  </ul>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </div>
 
 <style>
@@ -74,5 +92,11 @@
     border-radius: 5px;
   }
 </style>
+
+<script>
+  $(document).ready(function () {
+      $("#productTable").DataTable();
+  });
+</script>
 
 <!-- < include('../includes/footer') %> -->
