@@ -54,7 +54,7 @@ const orderSchema = new mongoose.Schema({
     },
     paidAmount: {
         type: Number,
-        defualt: 0,
+        default: 0,
     },
 });
 

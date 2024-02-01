@@ -37,10 +37,11 @@ userRoute.set('layout','./user/includes/layout.ejs')
 
 /*get methods*/
 
+userRoute.get('/sample',userController.loadSample)
 userRoute.get("/", userController.loadIndex);
 userRoute.get("/register",ensureNotAuthenticated, userController.loadRegister);
 userRoute.get("/login",ensureNotAuthenticated, userController.loadLogin);
-userRoute.get('/resendOtp',ensureNotAuthenticated,userController.resendOtp);
+userRoute.post('/resendOtp',ensureNotAuthenticated,userController.resendOtp);
 userRoute.get("/verifyOtp", ensureNotAuthenticated,userController.loadOtp);
 userRoute.get( "/sendEmail",ensureNotAuthenticated,userController.loadSendEmail);
 userRoute.get( "/verifyEmail",ensureNotAuthenticated, userController.LoadVerifyEmail);
@@ -100,6 +101,8 @@ userRoute.post("/checkout",ensureAuthenticated,checkoutController.checkoutPage);
 userRoute.get('/checkout/get',ensureAuthenticated,checkoutController.getCartData);
 userRoute.post('/placeOrder',checkoutController.placeOrder);
 userRoute.get('/orderPlaced/:id',checkoutController.orderPlaced);
+userRoute.post("/verifyPayment", checkoutController.verifyPayment);
+userRoute.post("/update", checkoutController.updateCheckoutPage);
 
 // ---------------------------------------address route---------------------------------------
 

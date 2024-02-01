@@ -12,6 +12,7 @@ const passport = require("passport");
 const override = require("method-override");
 const expressLayouts = require('express-ejs-layouts')
 const { notFound, errorHandler } = require("./middleware/errorHandler");
+const cors = require("cors")
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, "./public")));
 app.use('/admin', express.static(path.join(__dirname, './public/admin')));
 
 app.use(flash());
+app.use(cors())
 app.use(  
   session({
     secret: process.env.SECRET,

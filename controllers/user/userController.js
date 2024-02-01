@@ -8,6 +8,16 @@ const product = require("../../models/productModel");
 const category = require("../../models/categoryModel");
 const Orders = require("../../models/orderModel");
 const crypto = require("crypto");
+
+// load sample
+const loadSample = asynchandler(async (req, res) => {
+  try {
+    res.render("./user/pages/sample", { title: "SHOEVERSE" });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
+
 // ------------------------------------loadHome----------------------------------------
 const loadIndex = asynchandler(async (req, res) => {
   try {
@@ -107,8 +117,6 @@ const loadOtp = async (req, res) => {
 const verifyOtp = async (req, res) => {
   try {
     const enteredOtp = req.body.otp;
-    console.log(enteredOtp);
-
     const otpRecord = await otpModel.findOne({ otp: enteredOtp });
     if (otpRecord) {
       const verifyOtp = await User.findOneAndUpdate(
@@ -116,10 +124,10 @@ const verifyOtp = async (req, res) => {
         { $set: { isVerified: true } }
       );
       req.flash("success", "succesfully registered");
-      res.redirect("/login");
+      res.json({ status: "success" });
     } else {
       req.flash("danger", "enter the valid otp");
-      res.redirect("/verifyOtp");
+      res.json({ status: "failed" });
     }
   } catch (error) {
     console.log(error.message);
@@ -130,18 +138,22 @@ const verifyOtp = async (req, res) => {
 
 const resendOtp = asynchandler(async (req, res) => {
   try {
+    const email = req.body.email;
+
+    const user = await User.findOne({email: email})
+
     const OTP = otpSetup.generateNumericOTP();
-    const email = req.session.userData.email;
     const otp = new otpModel({ email: email, otp: OTP });
-    const otpSave = await otp.save();
-    const name = req.session.userData.name;
+    await otp.save();
+    const name = user.firstName
     const otpSend = otpSetup.sendOtp(email, OTP, name);
-    try {
-      return res.redirect("/verifyOtp");
-    } catch (error) {
-      throw new Error(error.message);
-    }
+
+   
+      return res.json({status: 'success'})
+
   } catch (error) {
+
+    return res.json({status: 'failed'})
     throw new Error(error.message);
   }
 });
@@ -152,7 +164,7 @@ const loadLogin = async (req, res) => {
     const messages = req.flash();
     res.render("./user/pages/login", { title: "SHOEVERSE", messages });
   } catch (error) {
-   throw new Error(error)
+    throw new Error(error);
   }
 };
 
@@ -163,7 +175,7 @@ const userLogin = asynchandler(async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -219,19 +231,18 @@ const editProfile = asynchandler(async (req, res) => {
 
     const newFirstName = req.body.firstName;
     const newMobile = req.body.mobile;
-    
+
     // console.log(newFirstName); // Fix the typo here
     // console.log(newMobile);
     // Update the user's information.
     user.firstName = newFirstName;
     user.mobile = newMobile;
-    
+
     await user.save();
     // Return a success response.
-    console.log(user.firstName)
-    console.log(user.mobile)
+    console.log(user.firstName);
+    console.log(user.mobile);
     res.redirect("/account");
-
   } catch (error) {
     throw new Error(error);
   }
@@ -247,19 +258,16 @@ const loadSendEmail = asynchandler(async (req, res) => {
   }
 });
 
-
 //-------------------sendEmail----------------------------------------------------------------
 const sendEmail = asynchandler(async (req, res) => {
   try {
     const email = req.body.email;
     const user = await User.findOne({ email: email }); //---------------checking email already registered-----------------------
 
-    if(!user){
+    if (!user) {
       req.flash("danger", "please register first");
       res.redirect("/sendEmail");
-    }
-
-   else if (user.isVerified) {
+    } else if (user.isVerified) {
       req.flash("danger", "you are already verified");
       res.redirect("/sendEmail");
     } else {
@@ -279,7 +287,6 @@ const sendEmail = asynchandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
 
 //-----------------------load verify email----------------------------------
 
@@ -319,7 +326,6 @@ const verifyEmail = asynchandler(async (req, res) => {
   }
 });
 
-
 //----------------------------------resend verify email--------------------------------
 
 const reverifyEmail = asynchandler(async (req, res) => {
@@ -340,14 +346,12 @@ const reverifyEmail = asynchandler(async (req, res) => {
   }
 });
 
-
-
 //--------------load forgot password ----------------------------
 
 const loadforgotPassword = asynchandler(async (req, res) => {
   try {
     const messages = req.flash();
-    res.render("./user/pages/forgotPassword", { title:"WAT", messages });
+    res.render("./user/pages/forgotPassword", { title: "WAT", messages });
   } catch (error) {
     throw new Error(error);
   }
@@ -368,8 +372,8 @@ const forgotPassword = asynchandler(async (req, res) => {
       await user.save();
       const name = user.firstName;
       const sendToken = await otpSetup.sendToken(email, resetToken, name);
-      req.flash('success',"verify link send to the email address")
-      res.redirect('/forgotPassword')
+      req.flash("success", "verify link send to the email address");
+      res.redirect("/forgotPassword");
     }
   } catch (error) {
     throw new Error(error);
@@ -391,7 +395,6 @@ const emailcheck = asynchandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
 
 //-------------------------reset password -----------------------------------
 
@@ -423,7 +426,7 @@ const resetPassword = asynchandler(async (req, res) => {
 
 const loadnewPassword = asynchandler(async (req, res) => {
   try {
-    res.render("./user/pages/newPassword", {title:"SHOEVERSE"});
+    res.render("./user/pages/newPassword", { title: "SHOEVERSE" });
   } catch (error) {
     throw new Error(error);
   }
@@ -437,7 +440,6 @@ const newPassword = asynchandler(async (req, res) => {
     const email = req.session.email;
     const user = await User.findOne({ email });
     if (user) {
-      
       const password = newPassword;
       user.password = password;
       user.passwordChangedAt = Date.now();
@@ -454,8 +456,6 @@ const newPassword = asynchandler(async (req, res) => {
   }
 });
 
-
-
 //-----------------------changing password page --------------------
 
 const changePassword = asynchandler(async (req, res) => {
@@ -471,10 +471,9 @@ const changePassword = asynchandler(async (req, res) => {
     res.status(200).json({ message: "Password change initiated successfully" });
   } catch (error) {
     // Handle errors and send an error response
-  throw new Error(error)
+    throw new Error(error);
   }
 });
-
 
 module.exports = {
   loadIndex,
@@ -494,11 +493,12 @@ module.exports = {
   LoadVerifyEmail,
   verifyEmail,
   reverifyEmail,
-loadforgotPassword,
-forgotPassword,
-emailcheck,
-resetPassword,
-loadnewPassword,
-newPassword,
-changePassword
+  loadforgotPassword,
+  forgotPassword,
+  emailcheck,
+  resetPassword,
+  loadnewPassword,
+  newPassword,
+  changePassword,
+  loadSample,
 };

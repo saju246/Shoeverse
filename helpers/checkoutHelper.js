@@ -18,6 +18,80 @@
         }
     })
 
+
+
+/**
+ * Calculate the total price of cart items
+ */
+//  const calculateTotalPrice = asyncHandler(async (cartItems, userid,
+//     //  payWithWallet, coupon
+//      ) => {
+//     const wallet = await Wallet.findOne({ user: userid });
+//     let subtotal = 0;
+//     for (const product of cartItems.products) {
+//         const productTotal = parseFloat(product.product.salePrice) * product.quantity;
+//         subtotal += productTotal;
+//     }
+//     let total;
+//     let usedFromWallet = 0;
+//     if (wallet && payWithWallet) {
+//         let discount = 0;
+//         total = subtotal;
+
+//         if (coupon) {
+//             if (coupon.type === "percentage") {
+//                 discount = ((total * coupon.value) / 100).toFixed(2);
+//                 if (discount > coupon.maxAmount) {
+//                     discount = coupon.maxAmount;
+//                     total -= discount;
+//                 } else {
+//                     total -= discount;
+//                 }
+//             } else if (coupon.type === "fixedAmount") {
+//                 discount = coupon.value;
+//                 total -= discount;
+//             }
+//         }
+
+//         if (total <= wallet.balance) {
+//             usedFromWallet = total;
+//             wallet.balance -= total;
+//             total = 0;
+//         } else {
+//             usedFromWallet = wallet.balance;
+//             total = subtotal - wallet.balance - discount;
+//             wallet.balance = 0;
+//         }
+//         return { subtotal, total, usedFromWallet, walletBalance: wallet.balance, discount: discount ? discount : 0 };
+//     } else {
+//         total = subtotal;
+//         let discount = 0;
+//         if (coupon) {
+//             if (coupon.type === "percentage") {
+//                 discount = ((total * coupon.value) / 100).toFixed(2);
+//                 if (discount > coupon.maxAmount) {
+//                     discount = coupon.maxAmount;
+//                     total -= discount;
+//                 } else {
+//                     total -= discount;
+//                 }
+//             } else if (coupon.type === "fixedAmount") {
+//                 discount = coupon.value;
+//                 total -= discount;
+//             }
+//         }
+//         return {
+//             subtotal,
+//             total,
+//             usedFromWallet,
+//             walletBalance: wallet ? wallet.balance : 0,
+//             discount: discount ? discount : 0,
+//         };
+//     }
+// });
+
+
+
     // -----------------------------place an order-----------------------
     const placeOrder = asyncHandler(async(userId,addressId,paymentMethod)=>{
         const cartItems =  await getCartItems(userId);

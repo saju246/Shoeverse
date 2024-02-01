@@ -2,142 +2,273 @@
 
 
 <div class="d-flex justify-content-center align-items-center container">
-    <form method="post" class="card py-5 px-3">
-      <h5 class="m-0 fw-bold fs-4 text-center">Email verification</h5>
-      <span class="mt-3 mobile-text"
-        >Enter the code we just sent to your email -
-        <b class="text-danger"><%=email %></b></span
-      >
-      <div class="d-flex flex-row mt-3">
-        <input type="text" name="otp" class="form-control" autofocus="" />
-      </div>
-  
-      <div class="d-flex justify-content-center pt-2">
-        <button
-          type="submit"
-          value="SIGNUP"
-          class="btn btn-danger btn-lg ms-2 rounded"
-          id="verify"
-        
-        >
-          Verify
+  <form id="verification" method="post" class="card py-5 px-3">
+    <h5 class="m-0 fw-bold fs-4 text-center">Email verification</h5>
+    <span class="mt-3 mobile-text">Enter the code we just sent to your email -
+      <b id="email" class="text-danger"><%=email %></b></span>
+    <div class="d-flex flex-row mt-3">
+      <input id="otp" type="text" name="otp" class="form-control" autofocus="" />
+    </div>
+
+    <div class="d-flex justify-content-center pt-2">
+      <button type="submit" value="SIGNUP" class="btn btn-danger btn-lg ms-2 rounded" id="verify">
+        Verify
+      </button>
+    </div>
+
+    <%-include('../includes/flashMessage') %>
+
+    <div class="text-center mt-3">
+      <span class="mobile-text" id="text" style="display: none">Don't receive the code?</span>
+      <a href="/resendOtp">
+        <button class="custom-button" type="submit" id="resendOTPButton" style="display: none">
+          RESEND
         </button>
-      </div>
-  
-      <%-include('../includes/flashMessage') %>
-  
-      <div class="text-center mt-3">
-        <span class="mobile-text" id="text" style="display: none"
-          >Don't receive the code?</span
-        >
-        <a href="/resendOtp">
-          <button
-            class="custom-button"
-            type="button"
-            id="resendOTPButton"
-            style="display: none"
-          >
-            RESEND
-          </button>
-        </a>
-      </div>
-  
-      <span id="timer" class="text-center fw-bolder fs-4 text-danger"></span>
-    </form>
-  </div>
-  
-  <style>
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #000000;
-    }
-  
-    .card {
-      width: auto; /* Make the width flexible */
-      max-width: 350px; /* Limit the maximum width */
-      padding: 10px;
-      border-radius: 20px;
-      background: #fff;
-      border: none;
-      height: auto; /* Make the height flexible */
-      position: relative;
-    }
-  
-    body {
-      background: #000000;
-    }
-  
-    .mobile-text {
-      color: #989696b8;
-      font-size: 15px;
-    }
-  
-    .form-control {
-      margin-right: 12px;
-    }
-  
-    .form-control:focus {
-      color: #495057;
-      background-color: #fff;
-      border-color: #ff8880;
-      outline: 0;
-      box-shadow: none;
-    }
-  
-    .cursor {
-      cursor: pointer;
-    }
-  
-    .custom-button {
-      padding: 5px 20px;
-      border: transparent;
-      border-radius: 75px; /* Adjust the value for the desired level of roundness */
-      background-color: #000000; /* Button background color */
-      color: #d60909; /* Text color */
-      font-size: 12px;
-    }
-  
-    .custom-button:hover {
-      background-color: #d60909;
-      color: #000000; /* Change color on hover */
-    }
-  </style>
-  
-  <script>
-    // Set the initial time to 60 seconds (1 minute)
-    let timerSeconds = 30;
-  
-    // Function to update the timer display and show the resend button
-    function updateTimer() {
-      const timerElement = document.getElementById("timer");
-      const resendButton = document.getElementById("resendOTPButton");
-      const text = document.getElementById("text");
-      const verify=document.getElementById("verify")
-  
-      timerElement.textContent = `${(timerSeconds % 60)
+      </a>
+    </div>
+
+    <span id="timer" class="text-center fw-bolder fs-4 text-danger"></span>
+  </form>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000000;
+  }
+
+  .card {
+    width: auto;
+    /* Make the width flexible */
+    max-width: 350px;
+    /* Limit the maximum width */
+    padding: 10px;
+    border-radius: 20px;
+    background: #fff;
+    border: none;
+    height: auto;
+    /* Make the height flexible */
+    position: relative;
+  }
+
+  body {
+    background: #000000;
+  }
+
+  .mobile-text {
+    color: #989696b8;
+    font-size: 15px;
+  }
+
+  .form-control {
+    margin-right: 12px;
+  }
+
+  .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ff8880;
+    outline: 0;
+    box-shadow: none;
+  }
+
+  .cursor {
+    cursor: pointer;
+  }
+
+  .custom-button {
+    padding: 5px 20px;
+    border: transparent;
+    border-radius: 75px;
+    /* Adjust the value for the desired level of roundness */
+    background-color: #000000;
+    /* Button background color */
+    color: #d60909;
+    /* Text color */
+    font-size: 12px;
+  }
+
+  .custom-button:hover {
+    background-color: #d60909;
+    color: #000000;
+    /* Change color on hover */
+  }
+</style>
+
+<script>
+  // Set the initial time to 60 seconds (1 minute)
+  let timerSeconds = 30;
+
+  // Function to update the timer display and show the resend button
+  function updateTimer(timer) {
+    const timerElement = document.getElementById("timer");
+    const resendButton = document.getElementById("resendOTPButton");
+    const text = document.getElementById("text");
+    const verify = document.getElementById("verify")
+
+    timerElement.textContent = `${(timerSeconds % 60)
         .toString()
         .padStart(2, "0")}`;
-  
-      if (timerSeconds > 0) {
-        // Continue the countdown
-        timerSeconds--;
-        setTimeout(updateTimer, 1000); // Update the timer every 1 second
-      }
-    }
-    updateTimer();
-  
-    const alert = document.getElementById("message");
-    setTimeout(() => {
-      alert.style.display = "none";
-    }, 3000);
-  
-    setTimeout(() => {
-      verify.style.display="none";
-      text.style.display = "block";
-      resendOTPButton.style.display = "inline-block";
-    }, 32000);
-  </script>
 
+    if (timerSeconds > 0) {
+      // Continue the countdown
+      timerSeconds--;
+      setTimeout(updateTimer, 1000); // Update the timer every 1 second
+    }
+  }
+  updateTimer();
+
+  const alert = document.getElementById("message");
+  setTimeout(() => {
+    alert.style.display = "none";
+  }, 3000);
+
+  setTimeout(() => {
+    verify.style.display = "none";
+    text.style.display = "block";
+    resendOTPButton.style.display = "inline-block";
+  }, 32000);
+
+  const submitBtn = document.getElementById("verification").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+
+    // Assuming you have an input field with id "otp" for OTP
+    const otp = document.getElementById("otp").value;
+
+    // Get the current URL
+
+    // Use fetch to send the OTP data to the current URL
+    fetch("http://localhost:8080/verifyOtp", {
+        method: "POST", // You may need to adjust the method based on your server requirements
+        headers: {
+          "Content-Type": "application/json", // Adjust content type based on your server's expectation
+        },
+        body: JSON.stringify({
+          otp: otp
+        }), // Convert data to JSON format if needed
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          location.replace("/login")
+        } else {
+          window.alert("Invalid otp")
+        }
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch
+        console.error('Error during fetch:', error);
+      });
+  });
+
+
+
+  // const resendButton = document.getElementById("resendOTPButton");
+
+  // resendButton.addEventListener("click", (e) => {
+
+
+  // e.preventDefault();
+
+  //     console.log("Resend button clicked with email:", email);  
+
+  //     fetch("http://localhost:8080/resendOtp", {
+  //         method: "POST", 
+  //         headers: {
+  //             "Content-Type": "application/json", 
+  //         },
+  //         body: JSON.stringify({ email: email }), 
+  //     })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //         if (data.status === "success") {
+
+  //             timerSeconds = 30;
+  //             updateTimer();
+  //             const text = document.getElementById("text");
+  //             const verify = document.getElementById("verify");
+  //             text.style.display = "none";
+  //             verify.style.display = "inline-block";
+  //             resendButton.style.display = "none";
+  //         } else {
+  //             window.alert("Failed to resend OTP");
+  //         }
+  //     })
+  //     .catch(error => {
+
+  //         console.error('Error during fetch:', error);
+  //     });
+  // });
+
+  const resendBtn = document.getElementById("resendOTPButton").addEventListener("click", (e) => {
+    e.preventDefault()
+    const email = document.getElementById('email').innerText
+
+    console.log(email);
+
+
+    fetch("http://localhost:8080/resendOtp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+
+        if (data.status === "success") {
+          let timerSeconds = 30;
+
+          // Function to update the timer display and show the resend button
+          function updateTimer(timer) {
+            const timerElement = document.getElementById("timer");
+            const resendButton = document.getElementById("resendOTPButton");
+            const text = document.getElementById("text");
+            const verify = document.getElementById("verify");
+            resendOTPButton.style.display = "none"
+
+            timerElement.textContent = `${(timerSeconds % 60)
+        .toString()
+        .padStart(2, "0")}`;
+
+            if (timerSeconds > 0) {
+              // Continue the countdown
+              timerSeconds--;
+              setTimeout(updateTimer, 1000); // Update the timer every 1 second
+            }
+          }
+          updateTimer();
+
+          const alert = document.getElementById("message");
+          verify.style.display = "block"
+          setTimeout(() => {
+            alert.style.display = "none";
+          }, 3000);
+
+          setTimeout(() => {
+            verify.style.display = "none";
+            text.style.display = "block";
+            resendOTPButton.style.display = "inline-block";
+          }, 32000);
+
+
+        } else {
+          window.alert("Failed to resend OTP");
+        }
+      })
+      .catch(error => {
+
+        console.error('Error during fetch:', error);
+      });
+
+  })
+</script>

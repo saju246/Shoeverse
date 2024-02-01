@@ -1,10 +1,13 @@
-const Cart = require("../../models/cartModel");
-const { User } = require("../../models/userModel");
-const Product = require("../../models/productModel");
-const Order = require("../../models/orderModel");
-const OrderItems = require("../../models/orderItemModel");
 const asyncHandler = require("express-async-handler");
 const checkoutHelper = require("../../helpers/checkoutHelper");
+const { User } = require("../../models/userModel");
+const Cart = require("../../models/cartModel");
+const Order = require("../../models/orderModel");
+const Product = require("../../models/productModel");
+const Razorpay = require("razorpay");
+const OrderItems = require("../../models/orderItemModel");
+
+// const { generateRazorPay } = require("../../config/razorpay");
 const { calculateCartTotals } = require("../../helpers/cartHelper");
 const moment =require("moment");
 
@@ -58,7 +61,56 @@ const placeOrder = asyncHandler(async (req, res) => {
         message: "Order placed successfully",
         orderId: newOrder._id,
       });
-    } else {
+    } else if (payment_method === "online_payment") {
+      const user = await User.findById(req.user._id);
+      const wallet = await Wallet.findOne({ user: userId });
+      let totalAmount = 0;
+
+      if (isWallet) {
+          totalAmount = newOrder.totalPrice;
+          totalAmount -= wallet.balance;
+          newOrder.paidAmount = totalAmount;
+          newOrder.wallet = wallet.balance;
+          await newOrder.save();
+          const walletTransaction = await WalletTransaction.create({
+              wallet: wallet._id,
+              event: "Order Placed",
+              orderId: newOrder.orderId,
+              amount: wallet.balance,
+              type: "debit",
+          });
+      } else if (!isWallet) {
+          totalAmount = newOrder.totalPrice;
+          newOrder.paidAmount = totalAmount;
+          await newOrder.save();
+      }
+
+      var instance = new Razorpay({
+          key_id: process.env.RAZORPAY_KEY_ID,
+          key_secret: process.env.RAZORPAY_KEY_SECRET,
+      });
+      const rzp_order = instance.orders.create(
+          {
+              amount: totalAmount * 100,
+              currency: "INR",
+              receipt: newOrder.orderId,
+          },
+          (err, order) => {
+              if (err) {
+                  res.status(500).json(err);
+              }
+              res.status(200).json({
+                  message: "Order placed successfully",
+                  rzp_order,
+                  order,
+                  user,
+                  walletAmount: wallet?.balance,
+                  orderId: newOrder._id,
+              });
+          }
+      );
+  } 
+     else {
       res.status(400).json({ message: "Invalid payment method" });
     }
   } catch (error) {
@@ -101,7 +153,20 @@ const orderPlaced = asyncHandler(async (req, res) => {
         item.isPaid = "cod";
         await item.save();
       }
-    }
+    }else if (order.payment_method === "online_payment") {
+      for (const item of order.orderItems) {
+          item.isPaid = "paid";
+          await item.save();
+      }
+      if (coupon) {
+          coupon.usedBy.push(userId);
+          await coupon.save();
+      }
+      const wallet = await Wallet.findOne({ user: req.user._id });
+   
+      wallet.balance -= order.wallet;
+      await wallet.save();
+  }
     
   if (cartItems) {
     for (const cartItem of cartItems.products) {
@@ -112,16 +177,92 @@ const orderPlaced = asyncHandler(async (req, res) => {
     }
     await Cart.findOneAndDelete({ user: req.user._id });
   }
-  res.render("./user/pages/orderPlaced", {
-    title: "Order Placed",
-    page: "Order Placed",
-    order: order,
-    moment: moment,
-  });
+  setTimeout(function(){
+    res.render("./user/pages/orderPlaced", {
+      title: "Order Placed",
+      page: "Order Placed",
+      order: order,
+      moment: moment,
+    });
+  },3000)
+
   } catch (error) {
     throw new Error(error);
   }
 
+});
+
+/**
+ * Vefify Payment
+ * Method POST
+ */
+const verifyPayment = asyncHandler(async (req, res) => {
+  try {
+      const { razorpay_payment_id, razorpay_order_id, razorpay_signature, orderId,  userId } = req.body;
+      const result = await checkoutHelper.verifyPayment(
+          razorpay_payment_id,
+          razorpay_order_id,  
+          razorpay_signature,
+          orderId
+         
+      );     
+
+      // if (result) {
+      //     const wallet = await Wallet.findOneAndUpdate(
+      //         { user: userId },
+      //         {
+      //             balance: walletAmount,
+      //         }
+      //     );
+         
+      // }
+
+      // res.json(result);
+  } catch (error) {
+      throw new Error(error);
+  }
+});
+
+
+const updateCheckoutPage = asyncHandler(async (req, res) => {
+  try {
+      const userid = req.user._id;
+      // const coupon = (await Coupon.findOne({ code: req.body.code, expiryDate: { $gt: Date.now() } })) || null;
+      const user = await User.findById(userid).populate("addresses");
+      const cartItems = await checkoutHelper.getCartItems(userid);
+
+      if (coupon) {
+          const { subtotal, total, usedFromWallet, walletBalance, discount } = await checkoutHelper.calculateTotalPrice(
+              cartItems,
+              userid,
+              // req.body.payWithWallet,
+              // coupon
+          );
+          res.json({ total, subtotal,
+            //  usedFromWallet,
+              // walletBalance,
+              //  discount 
+              });
+      } else {
+          const { subtotal, total,
+            //  usedFromWallet,
+              // walletBalance,
+              //  discount
+               } = await checkoutHelper.calculateTotalPrice(
+              cartItems,
+              userid,
+              req.body.payWithWallet,
+              coupon
+          );
+          res.json({ total, subtotal,
+            //  usedFromWallet,
+              // walletBalance,
+              //  discount
+               });
+      }
+  } catch (error) {
+      throw new Error(error);
+  }
 });
 
 module.exports = {
@@ -129,4 +270,6 @@ module.exports = {
   getCartData,
   placeOrder,
   orderPlaced,
+  verifyPayment,
+  updateCheckoutPage,
 }

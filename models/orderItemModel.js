@@ -34,6 +34,9 @@ const orderItemSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    // cancelReason:{
+    //     type:String 
+    // }
 });
 
 orderItemSchema.statics.updatePendingOrdersStatus = async function () {
