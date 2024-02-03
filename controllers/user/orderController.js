@@ -8,6 +8,7 @@ const {
 
 } = require('../../helpers/orderHelper')
 const OrderItem = require("../../models/orderItemModel");
+const moment = require("moment");
 
 // -----------------------------order page------------------------
 
@@ -39,7 +40,7 @@ exports.singleOrder = asyncHandler(async (req, res) => {
           title: order.product.title,
           page: order.product.title,
           order,
-          
+          moment,
           orders,
       });
   } catch (error) {

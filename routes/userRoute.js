@@ -97,7 +97,7 @@ userRoute.get('/checkProductAvailability',ensureAuthenticated,cartController.che
 
 // --------------------------------checkout page-----------------------------------
 
-userRoute.post("/checkout",ensureAuthenticated,checkoutController.checkoutPage);
+userRoute.post("/checkout",ensureAuthenticated,checkoutController.checkoutpage);
 userRoute.get('/checkout/get',ensureAuthenticated,checkoutController.getCartData);
 userRoute.post('/placeOrder',checkoutController.placeOrder);
 userRoute.get('/orderPlaced/:id',checkoutController.orderPlaced);

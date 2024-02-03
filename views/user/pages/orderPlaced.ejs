@@ -4,11 +4,13 @@
       <div class="order-confirmation">
         <h2>Order Placed Successfully</h2>
         <p><strong>Order ID:</strong> <%= order.orderId %></p>
-        <p><strong>Shipping Address:</strong> <%= order.address %>, <%= order.town %>, <%= order.state %></p>
-        <p><strong>Phone:</strong> <%= order.phone %></p>
+        <p><strong>Shipping Address:</strong> <%= order.address %>, <%= order.town %>, <%= order.state %> </p>
+        <p><strong>Post Code:</strong><%= order.postcode %></p>
+        <!-- <p><strong>Phone:</strong> < = order.phone %></p> -->
         <p><strong>Total Price:</strong> <%= order.totalPrice %></p>
-        <p><strong>Payment Method:</strong><%=order.payment_method%></p>
-        <p><strong>Ordered Date:</strong> <%=  moment(order.orderedDate).local().format('MMMM Do YYYY, h:mm a') %></p>
+        <p><strong>Payment Method:</strong><%=order.
+payment_method%></p>
+        <!-- <p><strong>Ordered Date:</strong> <=  moment(order.orderedDate).local().format('MMMM Do YYYY, h:mm a') %></p> -->
         <hr>
         <p class="lead"><strong>PRODUCTS</strong></p>
         <% order.orderItems.forEach(product => { %>
@@ -19,8 +21,7 @@
           </li>
         </ul>
         <% }) %>
-        <div>
-          <a href="/shop" class="btn btn-dark">Continue Shopping</a>
+        <div> <a href="/shop" class="btn btn-dark">Continue Shopping</a>
           <a href="/order" class="btn btn-dark">View Order</a>
 
         </div>
@@ -30,7 +31,12 @@
 </div>
 
 <style>
- 
+  body {
+    margin-top: 1%;
+
+
+    background-color: black;
+  }
 
   .container {
     margin-top: 200px;
