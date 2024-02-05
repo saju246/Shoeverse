@@ -1,5 +1,8 @@
 const { User } = require("../../models/userModel");
 const asynchandler = require("express-async-handler");
+const Product = require('../../models/productModel')
+const Orders = require('../../models/orderModel')
+const graphHelpers = require('../../helpers/graphHelper');
 
 require("dotenv").config();
 
@@ -43,7 +46,58 @@ const verifyAdmin = async (req, res) => {
 // ---------------------------------------load index-------------------------------------
 const loadIndex = asynchandler(async (req, res) => {
   try {
-    res.render("./admin/pages/index",{ title: "WATCHBOX/INDEX"});
+    const [orderResult, soldResult, totalProductsResult, totalUsersResult] =
+      await Promise.all([
+        Orders.aggregate([
+          {
+            $group:{
+              _id:null,
+              totalOrders : {$sum:1},
+            },
+          },
+        ]),
+        Product.aggregate([
+          {
+            $group:{
+              _id:null,
+              totalProducts:{$sum:"$sold"},
+            },
+          },
+        ]),
+        Product.aggregate([
+          {
+            $group:{
+              _id:null,
+              totalQuantity:{$sum:"$quantity"},
+            },
+          },
+        ]),
+        User.aggregate([{$group: {_id:null,totalUsers:{$sum:1}}}]),
+      ]);
+      const totalOrders = orderResult.length>0?orderResult[0].totalOrders : 0;
+      console.log("total orders",totalOrders);
+      const soldCount = soldResult.length>0?soldResult[0].totalProducts : 0;
+      console.log("soldCount",soldCount);
+      const totalQuantity = totalProductsResult.length>0?totalProductsResult[0].totalQuantity : 0;
+      console.log("totalQuantity",totalQuantity);
+      const totalUsers = totalUsersResult.length>0?totalUsersResult[0].totalUsers : 0;
+      console.log("totalUsers",totalUsers)
+ 
+      // -----------------------graph details -----------------------
+      const usersData = await graphHelpers.countUsers();
+      console.log("usersData",usersData);
+      const productSold = await graphHelpers.calculateProductSold();
+      console.log("productSold",productSold)
+
+    res.render("./admin/pages/index",{
+       title: "SHOEVERSE/INDEX",
+       soldCount,
+       totalOrders,
+       totalQuantity,
+       totalUsers,
+       usersData,
+       productSold,
+      });
   } catch (error) {
     throw new Error(error);
   }
@@ -53,10 +107,56 @@ const loadIndex = asynchandler(async (req, res) => {
 
 const usermanagement = asynchandler(async (req, res) => {
   try {
-    const findUsers = await User.find();
+    const [orderResult, soldResult, totalProductsResult, totalUsersResult] =
+      await Promise.all([
+        Orders.aggregate([
+          {
+            $group: {
+              _id: null,
+              totalOrders: { $sum: 1 },
+            },
+          },
+        ]),
+        Product.aggregate([
+          {
+            $group: {
+              _id: null,
+              totalProducts: { $sum: "$sold" },
+            },
+          },
+        ]),
+        Product.aggregate([
+          {
+            $group: {
+              _id: null,
+              totalQuantity: { $sum: "$quantity" },
+            },
+          },
+        ]),
+        User.aggregate([{ $group: { _id: null, totalUsers: { $sum: 1 } } }]),
+      ]);
+
+    const totalOrders = orderResult.length > 0 ? orderResult[0].totalOrders : 0;
+    const soldCount = soldResult.length > 0 ? soldResult[0].totalProducts : 0;
+    const totalQuantity =
+      totalProductsResult.length > 0 ? totalProductsResult[0].totalQuantity : 0;
+    const totalUsers =
+      totalUsersResult.length > 0 ? totalUsersResult[0].totalUsers : 0;
+
+    //-------------graph deatails----------------------------
+
+    const usersData = await graphHelpers.countUsers();
+    const productSold = await graphHelpers.calculateProductSold();
+    console.log(productSold,"........................");
+
     res.render("./admin/pages/userlist", {
-      title: "WATCHBOX/USERLIST",
-      users: findUsers,
+      title: "SHOEVERSE/USERLIST",
+      soldCount,
+      totalOrders,
+      totalQuantity,
+      totalUsers,
+      usersData,
+      productSold,
     });
   } catch (error) {
     throw new Error(error.message);
