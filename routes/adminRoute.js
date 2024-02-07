@@ -4,6 +4,7 @@ const adminController = require("../controllers/admin/adminController");
 const categoryController = require("../controllers/admin/categoryController");
 const productController = require('../controllers/admin/productController')
 const orderController = require("../controllers/admin/orderController");
+const salesController = require("../controllers/admin/salesReportController");
 
 const {isAdminLoggedin,isAdminLoggedOut,} =require('../middleware/adminAuth')
 const { upload, handleError, fileUploadValidation } = require("../config/upload");
@@ -50,5 +51,14 @@ adminRoute.delete('/product/deleteImage/:id',isAdminLoggedin,productController.d
 adminRoute.get("/orders",isAdminLoggedin, orderController.ordersPage);
 adminRoute.get("/orders/:id", isAdminLoggedin,orderController.editOrder);
 adminRoute.put("/orders/update/:id", isAdminLoggedin, orderController.updateOrderStatuss);
+
+//-----------------------admin sales reports--------------------
+
+
+adminRoute.get("/sales-reports", adminController.salesReportpage);
+adminRoute.get("/sales-data-weekly", adminController.getSalesData);
+adminRoute.get("/get/sales-report", adminController.generateSalesReport);
+  
+
 
 module.exports = adminRoute;
