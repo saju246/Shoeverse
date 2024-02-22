@@ -13,6 +13,13 @@
                 </div>
                 <button type="button" class="btn btn-primary" id="generateReport">Generate Report</button>
             </div>
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-stretch">
+                    <button type="button" class="btn btn-secondary" id="generateWeeklyReport">Weekly Report</button>
+                    <button type="button" class="btn btn-secondary" id="generateMonthlyReport">Monthly Report</button>
+                    <button type="button" class="btn btn-secondary" id="generateYearlyReport">Yearly Report</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -23,6 +30,7 @@
             <h3 id="heading"></h3>
             <button id="exportBtn" class="btn btn-primary d-none">Export</button>
         </div>
+       
     </div>
 </div>
 
@@ -177,5 +185,70 @@
 
     document.getElementById("exportBtn").addEventListener("click", () => {
         $("#exportOptionsModal").modal("show");
+    });
+</script>
+
+<script>
+    document.getElementById("generateWeeklyReport").addEventListener("click", () => {
+    generateReportByInterval("week");
+});
+
+document.getElementById("generateMonthlyReport").addEventListener("click", () => {
+    generateReportByInterval("month");
+});
+
+document.getElementById("generateYearlyReport").addEventListener("click", () => {
+    generateReportByInterval("year");
+});
+
+function generateReportByInterval(interval) {
+    const endDate = new Date(); // Current date
+    let fromDate;
+
+    switch (interval) {
+        case "week":
+            fromDate = new Date(endDate);
+            fromDate.setDate(fromDate.getDate() - 7); // Go back 7 days
+            break;
+        case "month":
+            fromDate = new Date(endDate);
+            fromDate.setMonth(fromDate.getMonth() - 1); // Go back 1 month
+            break;
+        case "year":
+            fromDate = new Date(endDate);
+            fromDate.setFullYear(fromDate.getFullYear() - 1); // Go back 1 year
+            break;
+        default:
+            return; // Invalid interval
+    }
+
+    document.getElementById("fromDate").valueAsDate = fromDate;
+    document.getElementById("toDate").valueAsDate = endDate;
+
+    // Trigger the existing generateReport click event
+    document.getElementById("generateReport").click();
+}
+</script>
+<script>
+    document.getElementById("exportBtn").addEventListener("click", () => {
+        $("#exportOptionsModal").modal("show");
+    });
+
+    document.getElementById("pdfBtn").addEventListener("click", function () {
+        const pdf = new jsPDF({
+            orientation: "landscape",
+        });
+        const divContent = document.getElementById("table");
+        pdf.fromHTML(divContent, 15, 15);
+        pdf.save(`sales-report-${fromDate.value}-${toDate.value}.pdf`);
+        $("#exportOptionsModal").modal("hide"); // Close the modal after exporting
+    });
+
+    document.getElementById("excelBtn").addEventListener("click", function () {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.table_to_sheet(document.getElementById("table"));
+        XLSX.utils.book_append_sheet(wb, ws, "Sales Report");
+        XLSX.writeFile(wb, `sales-report-${fromDate.value}-${toDate.value}.xlsx`);
+        $("#exportOptionsModal").modal("hide"); // Close the modal after exporting
     });
 </script>
